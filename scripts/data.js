@@ -6,7 +6,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "name": "Préambule",
     "shortTitle": "00 Préambule",
     "navTitle": "Préambule",
-    "summary": "Les outils et réflexes avant de coder. Cette page sert de point de controle quand'un problème ne vient pas de la notion Python elle-même.",
+    "summary": "Les outils et réflexes avant de coder. Cette page sert de point de contrôle quand un problème ne vient pas de la notion Python elle-même.",
     "status": "Base de révision",
     "focus": "Outils & réflexes",
     "objectives": [
@@ -23,13 +23,13 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "tags": [
           "python",
           "terminal",
-          "execution"
+          "exécution"
         ],
         "description": [
           "Un fichier Python se lance depuis le terminal avec python ou python3.",
           "La commande doit viser le bon fichier et partir du bon dossier.",
           "Si le fichier utilise des imports locaux, la racine de lancement compte beaucoup.",
-          "Avant de chercher une erreur complexe, vérifie toujours ou tu es dans le terminal."
+          "Avant de chercher une erreur complexe, vérifie toujours où tu es dans le terminal."
         ],
         "whyItMatters": [
           "Beaucoup de bugs viennent seulement d'une mauvaise commande.",
@@ -44,25 +44,25 @@ window.PISCINE_PROJECTS_FALLBACK = [
       },
       {
         "id": "interpreteur-python",
-        "title": "Comprendre l interpreteur Python",
+        "title": "Comprendre l'interpréteur Python",
         "level": "base",
         "tags": [
-          "interpreteur",
-          "execution"
+          "interpréteur",
+          "exécution"
         ],
         "description": [
           "Python lit le fichier de haut en bas.",
-          "Les définitions de fonctions et classes sont mémorisees.",
-          "Le code hors fonction'est exécute directement au chargement.",
-          "Un import peut donc lancer du code si le fichier importe n'est pas protégé."
+          "Les définitions de fonctions et classes sont mémorisées.",
+          "Le code hors fonction est exécuté directement au chargement.",
+          "Un import peut donc lancer du code si le fichier importé n'est pas protégé."
         ],
         "whyItMatters": [
-          "Ce modèle explique beaucoup d effets surprises.",
-          "Il aide à comprendre pourquoi l ordre des lignes compte."
+          "Ce modèle explique beaucoup d'effets surprises.",
+          "Il aide à comprendre pourquoi l'ordre des lignes compte."
         ],
         "code": "def hello() -> None:\n    print(\"hello\")\n\nprint(\"ready\")\nhello()",
         "output": "ready\nhello",
-        "commonMistake": "Mettre du code de test au niveau global dans un module importe.",
+        "commonMistake": "Mettre du code de test au niveau global dans un module importé.",
         "howToSpot": "Un import affiche quelque chose ou lance un traitement sans appel explicite.",
         "fix": "Place les tests sous if __name__ == \"__main__\" quand c'est pertinent.",
         "memo": "Importer un fichier, c'est aussi le lire."
@@ -77,21 +77,21 @@ window.PISCINE_PROJECTS_FALLBACK = [
           "pep8"
         ],
         "description": [
-          "L indentation dit à Python quelles lignes appartiennent au même bloc.",
-          "Elle remplace les accolades que d autrès langages utilisent.",
-          "Un decalage change le sens du programme.",
+          "L'indentation dit à Python quelles lignes appartiennent au même bloc.",
+          "Elle remplace les accolades que d'autres langages utilisent.",
+          "Un décalage change le sens du programme.",
           "Quatre espaces par niveau restent le réflexe le plus lisible."
         ],
         "whyItMatters": [
-          "Une mauvaise indentation peut casser le programme ou changer sà logique.",
+          "Une mauvaise indentation peut casser le programme ou changer sa logique.",
           "Les correcteurs et linters repèrent vite ce problème."
         ],
         "code": "if True:\n    print(\"inside\")\nprint(\"after\")",
         "output": "inside\nafter",
-        "commonMistake": "Melanger tabulations et espaces.",
-        "howToSpot": "Python signale IndentationError ou le bloc ne se comporte pas comme prevu.",
+        "commonMistake": "Mélanger tabulations et espaces.",
+        "howToSpot": "Python signale IndentationError ou le bloc ne se comporte pas comme prévu.",
         "fix": "Configure ton éditeur pour insérer quatre espaces.",
-        "memo": "En Python, l espace fait partie du code."
+        "memo": "En Python, l'espace fait partie du code."
       },
       {
         "id": "commentaires-utiles",
@@ -104,18 +104,18 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "description": [
           "Un bon commentaire explique pourquoi une ligne existe.",
           "Il ne répète pas ce que le code dit déjà.",
-          "Il aide surtout quand'une décision peut surprendre.",
-          "Un code clair avec peu de commentaires vaut mieux qu'un code confus très commente."
+          "Il aide surtout quand une décision peut surprendre.",
+          "Un code clair avec peu de commentaires vaut mieux qu'un code confus très commenté."
         ],
         "whyItMatters": [
           "Pendant une défense, tu dois expliquer tes choix.",
-          "Un commentaire utile te rappelle le contexte sans cacher là logique."
+          "Un commentaire utile te rappelle le contexte sans cacher la logique."
         ],
         "code": "# Keep the default small so tests stay fast.\nlimit = 10",
         "output": "",
-        "commonMistake": "Ecrire un commentaire qui paraphrase le code.",
-        "howToSpot": "Le commentaire reste vrai même si tu supprimes là ligne suivante.",
-        "fix": "Commente l intention, le compromis, ou là limite connue.",
+        "commonMistake": "Écrire un commentaire qui paraphrase le code.",
+        "howToSpot": "Le commentaire reste vrai même si tu supprimes la ligne suivante.",
+        "fix": "Commente l'intention, le compromis, ou la limite connue.",
         "memo": "Commente le pourquoi, pas le bruit."
       },
       {
@@ -136,13 +136,13 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "whyItMatters": [
           "Les tests automatiques vérifient souvent la valeur renvoyée.",
-          "Si tu utilises print au lieu de return, le resultat peut sembler bon à l écran mais être faux pour le programme."
+          "Si tu utilises print au lieu de return, le résultat peut sembler bon à l'écran mais être faux pour le programme."
         ],
         "code": "def double(number: int) -> int:\n    return number * 2\n\nresult = double(4)\nprint(result)",
         "output": "8",
         "commonMistake": "Mettre print(number * 2) dans la fonction au lieu de return number * 2.",
         "howToSpot": "Le terminal affiche bien quelque chose, mais la fonction renvoie None.",
-        "fix": "Demande-toi si la fonction doit parler à l écran ou donner une valeur au programme.",
+        "fix": "Demande-toi si la fonction doit parler à l'écran ou donner une valeur au programme.",
         "memo": "print parle au terminal. return parle au code."
       },
       {
@@ -156,9 +156,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Un traceback montre le chemin suivi avant l'erreur.",
-          "La derniere ligne donne souvent le type d erreur et le message.",
-          "Les lignes au-dessus indiquent les fichiers et numeros de ligne.",
-          "Lis de bas en haut quand tu veux trouver le point de depart utile."
+          "La dernière ligne donne souvent le type d'erreur et le message.",
+          "Les lignes au-dessus indiquent les fichiers et numéros de ligne.",
+          "Lis de bas en haut quand tu veux trouver le point de départ utile."
         ],
         "whyItMatters": [
           "Le traceback est une carte, pas juste un message rouge.",
@@ -167,9 +167,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "value = int(\"abc\")",
         "output": "ValueError: invalid literal for int() with base 10: ...",
         "commonMistake": "Lire seulement la premiere ligne du traceback.",
-        "howToSpot": "Tu modifies une ligne qui n'est pas celle mentionnee par l'erreur.",
-        "fix": "Repère le type d erreur, puis le premier fichier qui appartient à ton code.",
-        "memo": "Le traceback indique ou regarder avant de dire quoi corriger."
+        "howToSpot": "Tu modifies une ligne qui n'est pas celle mentionnée par l'erreur.",
+        "fix": "Repère le type d'erreur, puis le premier fichier qui appartient à ton code.",
+        "memo": "Le traceback indique où regarder avant de dire quoi corriger."
       },
       {
         "id": "venv-pip-requirements",
@@ -183,7 +183,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "description": [
           "Un environnement virtuel isole les paquets du projet.",
           "pip installe les dépendances dans cet environnement.",
-          "requirements.txt garde là liste des paquets nécessaires.",
+          "requirements.txt garde la liste des paquets nécessaires.",
           "Le dossier du venv ne doit pas être commité."
         ],
         "whyItMatters": [
@@ -193,8 +193,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "python3 -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt",
         "output": "",
         "commonMistake": "Installer un paquet dans le Python global au lieu du venv.",
-        "howToSpot": "pip affiche une installation reussie mais python ne trouve pas le module.",
-        "fix": "Active le venv, vérifie which python, puis reinstalle.",
+        "howToSpot": "pip affiche une installation réussie mais python ne trouve pas le module.",
+        "fix": "Active le venv, vérifie which python, puis réinstalle.",
         "memo": "On partage requirements.txt, pas le dossier .venv."
       },
       {
@@ -210,15 +210,15 @@ window.PISCINE_PROJECTS_FALLBACK = [
           "mypy vérifie la cohérence des types.",
           "flake8 signale des problèmes de style ou de qualité.",
           "Un formatter comme autopep8 remet le code en forme.",
-          "Ces outils ne remplacent pas la comprehension, mais ils attrapent beaucoup d oublis."
+          "Ces outils ne remplacent pas la compréhension, mais ils attrapent beaucoup d'oublis."
         ],
         "whyItMatters": [
           "Un code propre se relit plus vite pendant une évaluation.",
-          "Les erreurs simples doivent être corrigees avant les vrais bugs."
+          "Les erreurs simples doivent être corrigées avant les vrais bugs."
         ],
         "code": "mypy main.py\nflake8 main.py\nautopep8 --in-place main.py",
         "output": "",
-        "commonMistake": "Lancer un formatter sans relire le resultat.",
+        "commonMistake": "Lancer un formatter sans relire le résultat.",
         "howToSpot": "Le code passe le formatter mais ne fait plus exactement ce que tu pensais.",
         "fix": "Formate, relis le diff, puis relance les tests.",
         "memo": "Les outils nettoient. Toi, tu valides le sens."
@@ -240,18 +240,18 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "whyItMatters": [
           "Une structure claire fait gagner du temps à toi et aux correcteurs.",
-          "Elle reduit les erreurs de chemin et d import."
+          "Elle réduit les erreurs de chemin et d'import."
         ],
         "code": "project/\n  README.md\n  .gitignore\n  main.py\n  tests/",
         "output": "",
         "commonMistake": "Mettre caches, venv ou fichiers locaux dans git.",
-        "howToSpot": "git status affiche .venv, __pycache__ ou des fichiers génères.",
+        "howToSpot": "git status affiche .venv, __pycache__ ou des fichiers générés.",
         "fix": "Ajoute ces chemins dans .gitignore et garde seulement les sources utiles.",
         "memo": "Un repo doit expliquer, lancer, et rester propre."
       },
       {
         "id": "shell-env-proprete",
-        "title": "Shell, variables d environnement et code propre",
+        "title": "Shell, variables d'environnement et code propre",
         "level": "base",
         "tags": [
           "shell",
@@ -260,17 +260,17 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Le shell sert à naviguer, lancer et inspecter le projet.",
-          "Les variables d environnement configurent sans modifier le code.",
+          "Les variables d'environnement configurent sans modifier le code.",
           "Un code qui marche une fois n'est pas toujours un code propre.",
-          "Un code propre à des noms clairs, peu de duplication, et des erreurs lisibles."
+          "Un code propre a des noms clairs, peu de duplication, et des erreurs lisibles."
         ],
         "whyItMatters": [
           "La Piscine demande souvent de comprendre vite ce qui se passe.",
-          "Les bons réflexes évitent de perdre du temps sur des details evitables."
+          "Les bons réflexes évitent de perdre du temps sur des détails évitables."
         ],
         "code": "pwd\nls\nAPP_MODE=dev python3 main.py",
         "output": "",
-        "commonMistake": "Ecrire une valeur locale directement dans le code.",
+        "commonMistake": "Écrire une valeur locale directement dans le code.",
         "howToSpot": "Tu dois modifier le fichier juste pour changer un chemin, une clé ou un mode.",
         "fix": "Lis la valeur avec os.getenv et documente le nom dans le README.",
         "memo": "Ce qui change selon la machine ne doit pas être bloqué dans le code."
@@ -284,12 +284,12 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "name": "Growing Code",
     "shortTitle": "01 Growing",
     "navTitle": "Growing Code",
-    "summary": "Le depart du parcours. On revoit les bases : fonctions, variables, conditions et bouclés.",
+    "summary": "Le départ du parcours. On revoit les bases : fonctions, variables, conditions et boucles.",
     "status": "Code présent",
     "focus": "Bases Python",
     "objectives": [
-      "Revoir les notions centrales : bases python.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Revoir les notions centrales : bases Python.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -343,20 +343,20 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "commonMistake": "Oublier les deux-points après if ou else.",
         "howToSpot": "Le code attendu ne se lance jamais, ou Python signale une erreur de syntaxe près du if.",
         "fix": "Lis le test comme une phrase et vérifie les deux-points et l'indentation.",
-        "memo": "if pose une question. Le bloc donne la reponse."
+        "memo": "if pose une question. Le bloc donne la réponse."
       },
       {
         "id": "boucles",
-        "title": "Bouclés",
+        "title": "Boucles",
         "level": "base",
         "tags": [
-          "bouclés",
+          "boucles",
           "listes",
-          "iteration"
+          "itération"
         ],
         "description": [
-          "Une bouclé répète une action.",
-          "for sert quand on connait une sequence à parcourir.",
+          "Une boucle répète une action.",
+          "for sert quand on connaît une séquence à parcourir.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -367,9 +367,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "plants = [\"basil\", \"mint\", \"sage\"]\n\nfor plant in plants:\n    print(plant)",
         "output": "basil\nmint\nsage",
         "commonMistake": "Modifier une liste pendant qu'on la parcourt.",
-        "howToSpot": "La bouclé saute des elements, tourne trop longtemps, ou modifie une liste au mauvais moment.",
+        "howToSpot": "La boucle saute des éléments, tourne trop longtemps, ou modifie une liste au mauvais moment.",
         "fix": "Parcours une copie si tu dois modifier la collection, ou construis une nouvelle liste.",
-        "memo": "for lit chaque element, un par un."
+        "memo": "for lit chaque élément, un par un."
       },
       {
         "id": "type-hints",
@@ -382,7 +382,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Les annotations indiquent les types attendus.",
-          "Elles aident là lecture et les outils comme mypy.",
+          "Elles aident la lecture et les outils comme mypy.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -392,8 +392,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "def greet(name: str) -> str:\n    return \"Hello \" + name",
         "output": "Hello Ada",
-        "commonMistake": "Croire que les annotations bloquént toujours le programme.",
-        "howToSpot": "mypy ou ton éditeur montre un type incoherent entre paramètre, retour et valeur utilisée.",
+        "commonMistake": "Croire que les annotations bloquent toujours le programme.",
+        "howToSpot": "mypy ou ton éditeur montre un type incohérent entre paramètre, retour et valeur utilisée.",
         "fix": "Aligne les annotations avec ce que la fonction utilise vraiment.",
         "memo": "Le type hint est un panneau. Python continue souvent sa route."
       }
@@ -411,7 +411,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "focus": "POO",
     "objectives": [
       "Revoir les notions centrales : poo.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -437,8 +437,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "class Plant:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\nbasil = Plant(\"Basil\")\nprint(basil.name)",
         "output": "Basil",
         "commonMistake": "Oublier self dans les méthodes.",
-        "howToSpot": "Python indique qu'un argument manque, souvent self, ou que l'attribut n existe pas.",
-        "fix": "Mets self en premier paramètre des méthodes d instance.",
+        "howToSpot": "Python indique qu'un argument manque, souvent self, ou que l'attribut n'existe pas.",
+        "fix": "Mets self en premier paramètre des méthodes d'instance.",
         "memo": "La classe est le moule. L'objet est ce qu'on fabrique."
       },
       {
@@ -451,7 +451,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
           "self"
         ],
         "description": [
-          "Un attribut garde une donnee.",
+          "Un attribut garde une donnée.",
           "Une méthode fait une action avec l'objet.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
@@ -464,15 +464,15 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "output": "1",
         "commonMistake": "Utiliser une variable locale au lieu de self.value.",
         "howToSpot": "La valeur semble modifiée dans la méthode, puis revient à son ancien état.",
-        "fix": "Stocke l état durable dans self.nom, pas dans une variable locale.",
+        "fix": "Stocke l'état durable dans self.nom, pas dans une variable locale.",
         "memo": "self garde la mémoire de l'objet."
       },
       {
         "id": "heritage-super",
-        "title": "Heritage et super()",
+        "title": "Héritage et super()",
         "level": "base",
         "tags": [
-          "heritage",
+          "héritage",
           "super",
           "poo"
         ],
@@ -488,9 +488,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "class Animal:\n    def speak(self) -> str:\n        return \"sound\"\n\nclass Cat(Animal):\n    def speak(self) -> str:\n        return super().speak() + \" meow\"\n\nprint(Cat().speak())",
         "output": "sound meow",
-        "commonMistake": "Reécrire tout le parent alors qu'un appel à super suffit.",
-        "howToSpot": "Le code du parent n'est plus exécute, ou des attributs initialises par le parent manquent.",
-        "fix": "Appelle super() quand tu veux garder l initialisation ou le comportement du parent.",
+        "commonMistake": "Réécrire tout le parent alors qu'un appel à super suffit.",
+        "howToSpot": "Le code du parent n'est plus exécuté, ou des attributs initialisés par le parent manquent.",
+        "fix": "Appelle super() quand tu veux garder l'initialisation ou le comportement du parent.",
         "memo": "L'enfant peut garder le parent, puis ajouter sa touche."
       }
     ]
@@ -502,12 +502,12 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "name": "Garden Guardian",
     "shortTitle": "03 Erreurs",
     "navTitle": "Garden Guardian",
-    "summary": "Ce projet sert à rendre le code plus robuste. On apprend à gerer les erreurs sans cacher les vrais problèmes.",
+    "summary": "Ce projet sert à rendre le code plus robuste. On apprend à gérer les erreurs sans cacher les vrais problèmes.",
     "status": "Code présent",
     "focus": "Erreurs",
     "objectives": [
       "Revoir les notions centrales : erreurs.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -521,8 +521,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
           "except"
         ],
         "description": [
-          "try tente une operation risquee.",
-          "except gere une erreur precise si elle arrive.",
+          "try tente une opération risquée.",
+          "except gère une erreur précise si elle arrive.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -533,8 +533,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "text = \"42\"\n\ntry:\n    value = int(text)\n    print(value)\nexcept ValueError:\n    print(\"not a number\")",
         "output": "42",
         "commonMistake": "Attraper Exception partout sans savoir pourquoi.",
-        "howToSpot": "Une vraie erreur disparait, ou le message affiche ne dit pas ce qui à casse.",
-        "fix": "Attrape l exception precise et garde un message utile pour comprendre.",
+        "howToSpot": "Une vraie erreur disparaît, ou le message affiché ne dit pas ce qui a cassé.",
+        "fix": "Attrape l'exception précise et garde un message utile pour comprendre.",
         "memo": "Attrape l'erreur attendue, pas tout le ciel."
       },
       {
@@ -547,8 +547,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
           "validation"
         ],
         "description": [
-          "raise signale qu'une donnee est invalide.",
-          "Le programme appelant peut alors reagir.",
+          "raise signale qu'une donnée est invalide.",
+          "Le programme appelant peut alors réagir.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -569,7 +569,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "level": "base",
         "tags": [
           "exceptions",
-          "cléanup",
+          "cleanup",
           "finally"
         ],
         "description": [
@@ -584,10 +584,10 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "try:\n    print(\"work\")\nfinally:\n    print(\"clean\")",
         "output": "work\ncléan",
-        "commonMistake": "Mettre là logique principale dans finally.",
-        "howToSpot": "Une action principale se lance même quand le try à échoué.",
-        "fix": "Garde finally pour liberer une ressource ou afficher une fin de traitement.",
-        "memo": "finally range la table, même si le repas à rate."
+        "commonMistake": "Mettre la logique principale dans finally.",
+        "howToSpot": "Une action principale se lance même quand le try a échoué.",
+        "fix": "Garde finally pour libérer une ressource ou afficher une fin de traitement.",
+        "memo": "finally range la table, même si le repas a raté."
       }
     ]
   },
@@ -603,7 +603,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "focus": "Fichiers",
     "objectives": [
       "Revoir les notions centrales : fichiers.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -628,10 +628,10 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "file = open(\"notes.txt\", \"r\", encoding=\"utf-8\")\ntext = file.read()\nfile.close()\nprint(text)",
         "output": "",
-        "commonMistake": "Oublier de fermer le fichier après là lecture.",
-        "howToSpot": "Le fichier reste verrouillé, ou une erreur arrive après plusieurs executions.",
-        "fix": "Utilise with des que possible pour fermer automatiquement le fichier.",
-        "memo": "Ouvrir un fichier crée une responsabilite."
+        "commonMistake": "Oublier de fermer le fichier après la lecture.",
+        "howToSpot": "Le fichier reste verrouillé, ou une erreur arrive après plusieurs exécutions.",
+        "fix": "Utilise with dès que possible pour fermer automatiquement le fichier.",
+        "memo": "Ouvrir un fichier crée une responsabilité."
       },
       {
         "id": "with-fichier",
@@ -656,8 +656,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "output": "",
         "commonMistake": "Utiliser file après la fin du bloc with.",
         "howToSpot": "Tu essaies de lire ou écrire hors du bloc with.",
-        "fix": "Fais toute là lecture ou ecriture dans le bloc indenté.",
-        "memo": "Dans with, le fichier est ouvert. Apres, il est ferme."
+        "fix": "Fais toute la lecture ou écriture dans le bloc indenté.",
+        "memo": "Dans with, le fichier est ouvert. Après, il est fermé."
       },
       {
         "id": "erreurs-fichier",
@@ -682,8 +682,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "output": "file not found",
         "commonMistake": "Supposer que le fichier existe toujours.",
         "howToSpot": "Le programme marche chez toi, puis casse quand le fichier manque ailleurs.",
-        "fix": "Prévois FileNotFoundError ou vérifie le chemin avant là lecture.",
-        "memo": "Un chemin'est une hypothèse, pas une garantie."
+        "fix": "Prévois FileNotFoundError ou vérifie le chemin avant la lecture.",
+        "memo": "Un chemin est une hypothèse, pas une garantie."
       }
     ]
   },
@@ -699,7 +699,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "focus": "Collections",
     "objectives": [
       "Revoir les notions centrales : collections.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -709,7 +709,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "level": "base",
         "tags": [
           "listes",
-          "comprehension",
+          "compréhension",
           "collections"
         ],
         "description": [
@@ -725,9 +725,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "scores = [4, 8, 2]\npassed = [score for score in scores if score >= 5]\nprint(passed)",
         "output": "[8]",
         "commonMistake": "Confondre l'index et la valeur.",
-        "howToSpot": "Le resultat contient les mauvais elements ou les index ne correspondent pas aux valeurs.",
-        "fix": "Nomme clairement la variable de bouclé et teste avec une petite liste.",
-        "memo": "Là liste est une file ordonnee."
+        "howToSpot": "Le résultat contient les mauvais éléments ou les index ne correspondent pas aux valeurs.",
+        "fix": "Nomme clairement la variable de boucle et teste avec une petite liste.",
+        "memo": "La liste est une file ordonnée."
       },
       {
         "id": "dictionnaires",
@@ -740,7 +740,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Un dictionnaire relie une clé à une valeur.",
-          "Il sert quand'un nom doit retrouver une donnee.",
+          "Il sert quand un nom doit retrouver une donnée.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -752,17 +752,17 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "output": "4",
         "commonMistake": "Lire une clé qui n'existe pas.",
         "howToSpot": "Python lève KeyError, ou une clé ressemble presque à celle que tu voulais.",
-        "fix": "Utilise in ou get quand'une clé peut manquer.",
+        "fix": "Utilise in ou get quand une clé peut manquer.",
         "memo": "La clé est l'adresse. La valeur est ce qu'on y trouve."
       },
       {
         "id": "generateurs",
-        "title": "Generateurs",
+        "title": "Générateurs",
         "level": "base",
         "tags": [
           "générateurs",
           "yield",
-          "iteration"
+          "itération"
         ],
         "description": [
           "Un générateur produit les valeurs une par une.",
@@ -795,7 +795,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "focus": "ABC & polymorphisme",
     "objectives": [
       "Revoir les notions centrales : abc & polymorphisme.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -810,7 +810,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Une classe abstraite définit un contrat.",
-          "Les enfants doivent fournir les méthodes demandees.",
+          "Les enfants doivent fournir les méthodes demandées.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -822,7 +822,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "output": "",
         "commonMistake": "Instancier directement une classe abstraite.",
         "howToSpot": "Python refuse de créer l'objet car une méthode abstraite manque.",
-        "fix": "Implemente toutes les méthodes marquees abstractmethod dans les classes enfants.",
+        "fix": "Implémente toutes les méthodes marquées abstractmethod dans les classes enfants.",
         "memo": "L'abstrait dit quoi faire. L'enfant dit comment."
       },
       {
@@ -847,9 +847,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "class Upper:\n    def run(self, text: str) -> str:\n        return text.upper()\n\nclass Lower:\n    def run(self, text: str) -> str:\n        return text.lower()\n\nfor tool in [Upper(), Lower()]:\n    print(tool.run(\"Py\"))",
         "output": "PY\npy",
         "commonMistake": "Tester le type partout au lieu de faire confiance à la méthode.",
-        "howToSpot": "Le code contient beaucoup de if type(...) au lieu d appeler la même méthode.",
+        "howToSpot": "Le code contient beaucoup de if type(...) au lieu d'appeler la même méthode.",
         "fix": "Donne le même nom de méthode aux objets compatibles et appelle cette méthode.",
-        "memo": "Meme bouton, machines différentes."
+        "memo": "Même bouton, machines différentes."
       },
       {
         "id": "pipeline",
@@ -861,8 +861,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
           "data"
         ],
         "description": [
-          "Un pipeline enchaine plusieurs traitements.",
-          "Chaque etape recoit le resultat de la precedente.",
+          "Un pipeline enchaîne plusieurs traitements.",
+          "Chaque étape reçoit le résultat de la précédente.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -872,9 +872,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "def strip_text(text: str) -> str:\n    return text.strip()\n\ndef shout(text: str) -> str:\n    return text.upper()\n\nvalue = shout(strip_text(\"  hi  \"))\nprint(value)",
         "output": "HI",
-        "commonMistake": "Melanger toutes les etapes dans une seule grosse fonction.",
-        "howToSpot": "Une etape attend'un format différent de celui produit par l etape precedente.",
-        "fix": "Documente le format d entree et de sortie de chaque etape.",
+        "commonMistake": "Mélanger toutes les étapes dans une seule grosse fonction.",
+        "howToSpot": "Une étape attend un format différent de celui produit par l'étape précédente.",
+        "fix": "Documente le format d'entrée et de sortie de chaque étape.",
         "memo": "Un pipeline avance par petites transformations."
       }
     ]
@@ -886,12 +886,12 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "name": "The Codex",
     "shortTitle": "07 Imports",
     "navTitle": "The Codex",
-    "summary": "Ce sujet sert de repere pour les modules et packages. Le code local n'est pas encore present dans le dossier analyse.",
+    "summary": "Ce sujet sert de repère pour les modules et packages. Le code local n'est pas encore présent dans le dossier analyse.",
     "status": "Sujet présent, code non détecté",
     "focus": "Imports & packages",
     "objectives": [
       "Revoir les notions centrales : imports & packages.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -916,10 +916,10 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "# tools.py\ndef add(a: int, b: int) -> int:\n    return a + b\n\n# main.py\nfrom tools import add\nprint(add(2, 3))",
         "output": "5",
-        "commonMistake": "Executer du code au chargement du module sans le vouloir.",
-        "howToSpot": "Un import lance du code tout seul ou provoque une bouclé d imports.",
-        "fix": "Protege le code de test avec if __name__ == \"__main__\".",
-        "memo": "Un module est une boite à outils."
+        "commonMistake": "Exécuter du code au chargement du module sans le vouloir.",
+        "howToSpot": "Un import lance du code tout seul ou provoque une boucle d'imports.",
+        "fix": "Protège le code de test avec if __name__ == \"__main__\".",
+        "memo": "Un module est une boîte à outils."
       },
       {
         "id": "packages",
@@ -932,7 +932,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Un package est un dossier de modules.",
-          "__init__.py controle ce que le dossier expose.",
+          "__init__.py contrôle ce que le dossier expose.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -958,7 +958,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "import charge un module.",
-          "from ... import ... prend'un nom precis dans ce module.",
+          "from ... import ... prend un nom précis dans ce module.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -969,9 +969,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "import math\nfrom pathlib import Path\n\nprint(math.sqrt(9))\nprint(Path(\"notes.txt\").suffix)",
         "output": "3.0\n.txt",
         "commonMistake": "Donner le même nom à son fichier qu'un module standard.",
-        "howToSpot": "Le mauvais module est charge, souvent à cause d'un nom de fichier trop generique.",
-        "fix": "Evite les noms comme math.py, typing.py ou random.py pour tes fichiers.",
-        "memo": "L'import indique à Python ou chercher le code."
+        "howToSpot": "Le mauvais module est chargé, souvent à cause d'un nom de fichier trop générique.",
+        "fix": "Évite les noms comme math.py, typing.py ou random.py pour tes fichiers.",
+        "memo": "L'import indique à Python où chercher le code."
       }
     ]
   },
@@ -982,12 +982,12 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "name": "DataDeck",
     "shortTitle": "08 Patterns",
     "navTitle": "DataDeck",
-    "summary": "Ce sujet prolonge la POO avec des patrons simples. Il aide à separer creation, capacités et stratégies.",
+    "summary": "Ce sujet prolonge la POO avec des patrons simples. Il aide à séparer création, capacités et stratégies.",
     "status": "Sujet présent, code non détecté",
     "focus": "Patterns POO",
     "objectives": [
       "Revoir les notions centrales : patterns poo.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -997,12 +997,12 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "level": "base",
         "tags": [
           "factory",
-          "creation",
+          "création",
           "patterns"
         ],
         "description": [
           "Une factory crée des objets pour le reste du code.",
-          "Le code appelant connait moins les classes concretes.",
+          "Le code appelant connaît moins les classes concrètes.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -1012,10 +1012,10 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "class User:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\ndef create_user(name: str) -> User:\n    return User(name)\n\nprint(create_user(\"Ada\").name)",
         "output": "Ada",
-        "commonMistake": "Mettre trop de logique metier dans la factory.",
-        "howToSpot": "Le code appelant connait toutes les classes concretes et devient difficile à changer.",
-        "fix": "Laisse la factory créer. Garde les règles metier ailleurs.",
-        "memo": "La factory fabrique. Elle ne doit pas tout decider."
+        "commonMistake": "Mettre trop de logique métier dans la factory.",
+        "howToSpot": "Le code appelant connaît toutes les classes concrètes et devient difficile à changer.",
+        "fix": "Laisse la factory créer. Garde les règles métier ailleurs.",
+        "memo": "La factory fabrique. Elle ne doit pas tout décider."
       },
       {
         "id": "interfaces-capacites",
@@ -1038,22 +1038,22 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "class CanLog:\n    def log(self, message: str) -> None:\n        print(message)\n\nlogger = CanLog()\nlogger.log(\"ready\")",
         "output": "ready",
-        "commonMistake": "Heriter d'une classe juste pour partager un nom.",
-        "howToSpot": "Une classe hérite juste pour récupèrer un nom, sans vrai comportement commun.",
-        "fix": "Herite seulement quand le comportement commun'est reel.",
+        "commonMistake": "Hériter d'une classe juste pour partager un nom.",
+        "howToSpot": "Une classe hérite juste pour récupérer un nom, sans vrai comportement commun.",
+        "fix": "Hérite seulement quand le comportement commun est réel.",
         "memo": "Une capacité répond à la question : que sait faire cet objet ?"
       },
       {
         "id": "strategy",
-        "title": "Strategy",
+        "title": "Stratégie",
         "level": "base",
         "tags": [
-          "strategy",
+          "stratégie",
           "patterns",
           "comportement"
         ],
         "description": [
-          "Une strategy deplace un choix dans un objet.",
+          "Une stratégie déplace un choix dans un objet.",
           "On peut changer le comportement sans changer le reste.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
@@ -1064,9 +1064,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "def loud(text: str) -> str:\n    return text.upper()\n\ndef apply(text: str, strategy) -> str:\n    return strategy(text)\n\nprint(apply(\"go\", loud))",
         "output": "GO",
-        "commonMistake": "Utiliser une grande chaine de if au lieu d'une stratégie.",
+        "commonMistake": "Utiliser une grande chaîne de if au lieu d'une stratégie.",
         "howToSpot": "Un gros bloc if choisit le comportement à chaque appel.",
-        "fix": "Isole chaque comportement dans une fonction ou une classe strategy.",
+        "fix": "Isole chaque comportement dans une fonction ou une classe stratégie.",
         "memo": "La stratégie est le plan choisi pour agir."
       }
     ]
@@ -1082,8 +1082,8 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "status": "Sujet présent, code non détecté",
     "focus": "Fonctions avancées",
     "objectives": [
-      "Revoir les notions centrales : fonctions avancees.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Revoir les notions centrales : fonctions avancées.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -1109,9 +1109,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "names = [\"zoe\", \"ada\", \"lin\"]\nprint(sorted(names, key=lambda name: len(name)))",
         "output": "['ada', 'lin', 'zoe']",
         "commonMistake": "Utiliser lambda pour une logique trop longue.",
-        "howToSpot": "Là lambda devient difficile à lire ou contient trop de logique.",
-        "fix": "Passe à une fonction def des que là logique à besoin d'un nom ou de plusieurs lignes.",
-        "memo": "lambda tient sur une idee courte."
+        "howToSpot": "La lambda devient difficile à lire ou contient trop de logique.",
+        "fix": "Passe à une fonction def dès que la logique a besoin d'un nom ou de plusieurs lignes.",
+        "memo": "lambda tient sur une idée courte."
       },
       {
         "id": "closures",
@@ -1135,9 +1135,9 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "def make_prefix(prefix: str):\n    def add_prefix(text: str) -> str:\n        return prefix + text\n    return add_prefix\n\nstar = make_prefix(\"* \")\nprint(star(\"note\"))",
         "output": "* note",
         "commonMistake": "Utiliser une variable globale alors qu'une closure suffit.",
-        "howToSpot": "Une valeur globale change les resultats de plusieurs fonctions sans que ce soit clair.",
-        "fix": "Garde la mémoire dans la closure quand elle appartient à la fonction créee.",
-        "memo": "La fonction se souvient de l'endroit ou elle est nee."
+        "howToSpot": "Une valeur globale change les résultats de plusieurs fonctions sans que ce soit clair.",
+        "fix": "Garde la mémoire dans la closure quand elle appartient à la fonction créée.",
+        "memo": "La fonction se souvient de l'endroit où elle est née."
       },
       {
         "id": "decorateurs",
@@ -1161,7 +1161,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "def announce(func):\n    def wrapper():\n        print(\"start\")\n        func()\n    return wrapper\n\n@announce\ndef work():\n    print(\"work\")\n\nwork()",
         "output": "start\nwork",
         "commonMistake": "Oublier de renvoyer wrapper dans le décorateur.",
-        "howToSpot": "La fonction décorée perd son nom, sa doc, ou ne s exécute plus.",
+        "howToSpot": "La fonction décorée perd son nom, sa doc, ou ne s'exécute plus.",
         "fix": "Retourne bien le wrapper et utilise functools.wraps quand c'est autorisé.",
         "memo": "Le décorateur ajoute une couche autour de la fonction."
       }
@@ -1179,7 +1179,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "focus": "Outils projet",
     "objectives": [
       "Revoir les notions centrales : outils projet.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -1230,7 +1230,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "pip install -r requirements.txt\npip freeze > requirements.txt",
         "output": "",
-        "commonMistake": "Commiter le dossier du venv au lieu de commitér là liste.",
+        "commonMistake": "Commiter le dossier du venv au lieu de commiter la liste.",
         "howToSpot": "Le projet marche sur ta machine mais pas sur une autre installation.",
         "fix": "Mets à jour requirements.txt quand tu ajoutes une dépendance.",
         "memo": "On partage la recette, pas toute la cuisine."
@@ -1258,7 +1258,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "output": "dev",
         "commonMistake": "Commiter un vrai fichier .env avec des secrets.",
         "howToSpot": "Un secret apparaît dans git, ou le programme dépend d'une valeur écrite en dur.",
-        "fix": "Commite .env.example, ignore .env, et lis les valeurs avec os.getenv.",
+        "fix": "Versionne .env.example, ignore .env, et lis les valeurs avec os.getenv.",
         "memo": ".env.example montre les noms. .env garde les valeurs."
       }
     ]
@@ -1272,10 +1272,10 @@ window.PISCINE_PROJECTS_FALLBACK = [
     "navTitle": "Cosmic Data",
     "summary": "Ce sujet introduit Pydantic. On décrit les données attendues, puis Pydantic valide et convertit.",
     "status": "Sujet présent, code non détecté",
-    "focus": "Validation données",
+    "focus": "Validation des données",
     "objectives": [
-      "Revoir les notions centrales : validation données.",
-      "Identifier les erreurs frequentes avant une évaluation.",
+      "Revoir les notions centrales : validation des données.",
+      "Identifier les erreurs fréquentes avant une évaluation.",
       "Garder un exemple minimal sous la main."
     ],
     "concepts": [
@@ -1290,7 +1290,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "BaseModel crée un modèle valide.",
-          "Field ajoute des règles sur une donnee.",
+          "Field ajoute des règles sur une donnée.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -1316,7 +1316,7 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "description": [
           "Un validateur vérifie une règle entre plusieurs champs.",
-          "Il sert quand'un seul type ne suffit pas.",
+          "Il sert quand un seul type ne suffit pas.",
           "Garde cette notion en version simple avant de chercher une solution plus élégante.",
           "Un petit exemple fiable vaut mieux qu'une grande explication floue."
         ],
@@ -1327,13 +1327,13 @@ window.PISCINE_PROJECTS_FALLBACK = [
         "code": "from pydantic import BaseModel, model_validator\n\nclass Range(BaseModel):\n    start: int\n    end: int\n\n    @model_validator(mode=\"after\")\n    def check_order(self):\n        if self.end < self.start:\n            raise ValueError(\"end must be after start\")\n        return self",
         "output": "",
         "commonMistake": "Utiliser une ancienne forme de validateur avec Pydantic v2.",
-        "howToSpot": "Chaque champ est valide seul, mais l ensemble des champs n à pas de sens.",
+        "howToSpot": "Chaque champ est valide seul, mais l'ensemble des champs n'a pas de sens.",
         "fix": "Place les règles entre champs dans un validateur du modèle.",
         "memo": "Le validateur regarde l'objet complet."
       },
       {
         "id": "modeles-imbriques",
-        "title": "Modeles imbriqués",
+        "title": "Modèles imbriqués",
         "level": "intermédiaire",
         "tags": [
           "pydantic",
@@ -1352,10 +1352,10 @@ window.PISCINE_PROJECTS_FALLBACK = [
         ],
         "code": "from pydantic import BaseModel\n\nclass User(BaseModel):\n    name: str\n\nclass Team(BaseModel):\n    members: list[User]\n\nteam = Team(members=[{\"name\": \"Ada\"}])\nprint(team.members[0].name)",
         "output": "Ada",
-        "commonMistake": "Valider une grosse structure sans la decouper.",
+        "commonMistake": "Valider une grosse structure sans la découper.",
         "howToSpot": "Une grosse structure devient impossible à lire ou à tester en une seule classe.",
-        "fix": "Decoupe les données en modèles plus petits avec des noms clairs.",
-        "memo": "Un grand schema devient plus clair avec de petits modèles."
+        "fix": "Découpe les données en modèles plus petits avec des noms clairs.",
+        "memo": "Un grand schéma devient plus clair avec de petits modèles."
       }
     ]
   }

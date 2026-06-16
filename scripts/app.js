@@ -123,7 +123,7 @@ function renderProject(projectId, conceptId = "", shouldScroll = true) {
           <p data-reading>${escapeHtml(concept.howToSpot || "")}</p>
           <h4>Bon réflexe</h4>
           <p data-reading>${escapeHtml(concept.fix || "")}</p>
-          <h4>Memo</h4>
+          <h4>Mémo</h4>
           <p class="memo" data-reading>${escapeHtml(concept.memo)}</p>
         </article>
       `;
@@ -146,7 +146,7 @@ function renderProject(projectId, conceptId = "", shouldScroll = true) {
           ${renderTextList(project.objectives, "overview-list")}
         </div>
         <div>
-          <h3>Notions abordees</h3>
+          <h3>Notions abordées</h3>
           <ul class="overview-list">
             ${project.concepts.map((concept) => `<li>${escapeHtml(concept.title)}</li>`).join("")}
           </ul>
