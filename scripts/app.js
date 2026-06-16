@@ -43,14 +43,15 @@ async function loadProjects() {
 
 function renderTimeline(projects) {
   elements.nav.innerHTML = projects
-    .map((project, index) => {
+    .map((project) => {
       const current = project.id === state.activeProjectId ? ' aria-current="page"' : "";
 
       return `
         <button type="button" data-project-id="${escapeHtml(project.id)}"${current}>
-          <span>
-            <strong>${escapeHtml(project.shortTitle || project.title)}</strong>
-            <span>${escapeHtml(project.title)} - ${index + 1}/${projects.length}</span>
+          <span class="timeline-number">${escapeHtml(project.number || "")}</span>
+          <span class="timeline-copy">
+            <strong>${escapeHtml(project.navTitle || project.name || project.title)}</strong>
+            <span>${escapeHtml(project.focus)}</span>
           </span>
         </button>
       `;
@@ -58,7 +59,31 @@ function renderTimeline(projects) {
     .join("");
 }
 
-function renderProject(projectId, conceptId = "") {
+function renderTextList(lines, className = "") {
+  if (!Array.isArray(lines) || lines.length === 0) {
+    return "";
+  }
+
+  return `
+    <ul class="${className}">
+      ${lines.map((line) => `<li data-reading>${escapeHtml(line)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderTags(tags) {
+  if (!Array.isArray(tags) || tags.length === 0) {
+    return "";
+  }
+
+  return `
+    <ul class="tag-list" aria-label="Tags de notion">
+      ${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderProject(projectId, conceptId = "", shouldScroll = true) {
   const project = state.projects.find((item) => item.id === projectId) || state.projects[0];
 
   if (!project) {
@@ -75,19 +100,29 @@ function renderProject(projectId, conceptId = "") {
         ? `<h4>Exemple</h4><pre><code>${escapeHtml(concept.code)}</code></pre>`
         : "";
       const output = concept.output
-        ? `<h4>Resultat</h4><pre class="output"><code>${escapeHtml(concept.output)}</code></pre>`
+        ? `<h4>Résultat</h4><pre class="output"><code>${escapeHtml(concept.output)}</code></pre>`
         : "";
 
       return `
         <article class="notebook-block" id="${escapeHtml(concept.id)}">
-          <h3 data-reading>${escapeHtml(concept.title)}</h3>
+          <div class="concept-heading">
+            <h3>${escapeHtml(concept.title)}</h3>
+            <span>${escapeHtml(concept.level || "base")}</span>
+          </div>
+          ${renderTags(concept.tags)}
           <div class="description">
             ${concept.description.map((line) => `<p data-reading>${escapeHtml(line)}</p>`).join("")}
           </div>
+          <h4>Pourquoi c'est utile</h4>
+          ${renderTextList(concept.whyItMatters, "why-list")}
           ${code}
           ${output}
-          <h4>Erreur frequente</h4>
+          <h4>Erreur fréquente</h4>
           <p class="mistake" data-reading>${escapeHtml(concept.commonMistake)}</p>
+          <h4>Comment la reconnaître</h4>
+          <p data-reading>${escapeHtml(concept.howToSpot || "")}</p>
+          <h4>Bon réflexe</h4>
+          <p data-reading>${escapeHtml(concept.fix || "")}</p>
           <h4>Memo</h4>
           <p class="memo" data-reading>${escapeHtml(concept.memo)}</p>
         </article>
@@ -96,14 +131,27 @@ function renderProject(projectId, conceptId = "") {
     .join("");
 
   elements.projectPanel.innerHTML = `
-    <article>
-      <h2 class="project-title" data-reading>${escapeHtml(project.title)}</h2>
+    <article class="project-page">
+      <p class="project-kicker">${escapeHtml(project.focus)}</p>
+      <h2 class="project-title">${escapeHtml(project.title)}</h2>
       <p class="summary" data-reading>${escapeHtml(project.summary)}</p>
       <ul class="meta-list" aria-label="Informations projet">
         <li>${escapeHtml(project.status)}</li>
         <li>${project.concepts.length} notions</li>
         <li>${escapeHtml(project.focus)}</li>
       </ul>
+      <section class="project-overview" aria-label="Objectifs et notions">
+        <div>
+          <h3>Objectifs de révision</h3>
+          ${renderTextList(project.objectives, "overview-list")}
+        </div>
+        <div>
+          <h3>Notions abordees</h3>
+          <ul class="overview-list">
+            ${project.concepts.map((concept) => `<li>${escapeHtml(concept.title)}</li>`).join("")}
+          </ul>
+        </div>
+      </section>
       ${concepts}
     </article>
   `;
@@ -112,7 +160,7 @@ function renderProject(projectId, conceptId = "") {
 
   if (conceptId) {
     document.getElementById(conceptId)?.scrollIntoView({ block: "start" });
-  } else {
+  } else if (shouldScroll) {
     elements.projectPanel.scrollIntoView({ block: "start" });
   }
 }
@@ -121,10 +169,17 @@ function getSearchText(project, concept) {
   return [
     project.title,
     project.shortTitle,
+    project.name,
+    project.navTitle,
     project.summary,
+    project.focus,
     concept.title,
+    ...(concept.tags || []),
     ...concept.description,
+    ...(concept.whyItMatters || []),
     concept.commonMistake,
+    concept.howToSpot || "",
+    concept.fix || "",
     concept.memo,
   ]
     .join(" ")
@@ -153,7 +208,7 @@ function searchProjects(query) {
 
   if (results.length === 0) {
     elements.searchResults.innerHTML =
-      '<li class="empty-state" data-reading>Aucun resultat. Essaie un mot plus simple.</li>';
+      '<li class="empty-state" data-reading>Aucun résultat. Essaie un mot plus simple.</li>';
     window.readingAssist.refresh(document);
     return;
   }
@@ -234,7 +289,7 @@ async function init() {
 
   setupEvents();
   renderTimeline(state.projects);
-  renderProject(state.activeProjectId);
+  renderProject(state.activeProjectId, "", false);
 
   const readingEnabled = window.readingAssist.isEnabled();
   elements.readingToggle.setAttribute("aria-pressed", String(readingEnabled));
@@ -244,7 +299,7 @@ async function init() {
 init().catch((error) => {
   elements.projectPanel.innerHTML = `
     <p class="empty-state">
-      Impossible de charger les donnees du site. ${escapeHtml(error.message)}
+      Impossible de charger les données du site. ${escapeHtml(error.message)}
     </p>
   `;
 });
