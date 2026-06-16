@@ -1,0 +1,520 @@
+window.PISCINE_PROJECTS_FALLBACK = [
+  {
+    "id": "growing-code",
+    "title": "01 - Growing Code",
+    "shortTitle": "01 Growing",
+    "summary": "Le depart du parcours. On revoit les bases : fonctions, variables, conditions et boucles.",
+    "status": "Code present",
+    "focus": "Fondations",
+    "concepts": [
+      {
+        "id": "fonctions-return",
+        "title": "Fonctions et return",
+        "description": [
+          "Une fonction range une action dans un nom.",
+          "return renvoie une valeur au code qui appelle la fonction."
+        ],
+        "code": "def double(number: int) -> int:\n    return number * 2\n\nprint(double(4))",
+        "output": "8",
+        "commonMistake": "Afficher avec print au lieu de renvoyer avec return.",
+        "memo": "print parle a l'ecran. return parle au programme."
+      },
+      {
+        "id": "conditions",
+        "title": "Conditions",
+        "description": [
+          "Une condition choisit un chemin.",
+          "Le bloc indente s'execute seulement si le test est vrai."
+        ],
+        "code": "water = 3\n\nif water <= 0:\n    print(\"empty\")\nelse:\n    print(\"ready\")",
+        "output": "ready",
+        "commonMistake": "Oublier les deux-points apres if ou else.",
+        "memo": "if pose une question. Le bloc donne la reponse."
+      },
+      {
+        "id": "boucles",
+        "title": "Boucles",
+        "description": [
+          "Une boucle repete une action.",
+          "for sert quand on connait une sequence a parcourir."
+        ],
+        "code": "plants = [\"basil\", \"mint\", \"sage\"]\n\nfor plant in plants:\n    print(plant)",
+        "output": "basil\nmint\nsage",
+        "commonMistake": "Modifier une liste pendant qu'on la parcourt.",
+        "memo": "for lit chaque element, un par un."
+      },
+      {
+        "id": "type-hints",
+        "title": "Type hints",
+        "description": [
+          "Les annotations indiquent les types attendus.",
+          "Elles aident la lecture et les outils comme mypy."
+        ],
+        "code": "def greet(name: str) -> str:\n    return \"Hello \" + name",
+        "output": "Hello Ada",
+        "commonMistake": "Croire que les annotations bloquent toujours le programme.",
+        "memo": "Le type hint est un panneau. Python continue souvent sa route."
+      }
+    ]
+  },
+  {
+    "id": "code-cultivation",
+    "title": "02 - CodeCultivation",
+    "shortTitle": "02 POO",
+    "summary": "On passe aux objets. Les classes servent a regrouper donnees et comportements.",
+    "status": "Code present",
+    "focus": "POO",
+    "concepts": [
+      {
+        "id": "classes",
+        "title": "Classes",
+        "description": [
+          "Une classe est un modele.",
+          "Elle permet de creer plusieurs objets avec la meme forme."
+        ],
+        "code": "class Plant:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\nbasil = Plant(\"Basil\")\nprint(basil.name)",
+        "output": "Basil",
+        "commonMistake": "Oublier self dans les methodes.",
+        "memo": "La classe est le moule. L'objet est ce qu'on fabrique."
+      },
+      {
+        "id": "attributs-methodes",
+        "title": "Attributs et methodes",
+        "description": [
+          "Un attribut garde une donnee.",
+          "Une methode fait une action avec l'objet."
+        ],
+        "code": "class Counter:\n    def __init__(self) -> None:\n        self.value = 0\n\n    def add_one(self) -> None:\n        self.value += 1\n\ncounter = Counter()\ncounter.add_one()\nprint(counter.value)",
+        "output": "1",
+        "commonMistake": "Utiliser une variable locale au lieu de self.value.",
+        "memo": "self garde la memoire de l'objet."
+      },
+      {
+        "id": "heritage-super",
+        "title": "Heritage et super()",
+        "description": [
+          "Une classe peut reprendre le code d'une autre.",
+          "super() appelle la version du parent."
+        ],
+        "code": "class Animal:\n    def speak(self) -> str:\n        return \"sound\"\n\nclass Cat(Animal):\n    def speak(self) -> str:\n        return super().speak() + \" meow\"\n\nprint(Cat().speak())",
+        "output": "sound meow",
+        "commonMistake": "Reecrire tout le parent alors qu'un appel a super suffit.",
+        "memo": "L'enfant peut garder le parent, puis ajouter sa touche."
+      }
+    ]
+  },
+  {
+    "id": "garden-guardian",
+    "title": "03 - Garden Guardian",
+    "shortTitle": "03 Erreurs",
+    "summary": "Ce projet sert a rendre le code plus robuste. On apprend a gerer les erreurs sans cacher les vrais problemes.",
+    "status": "Code present",
+    "focus": "Exceptions",
+    "concepts": [
+      {
+        "id": "try-except",
+        "title": "try / except",
+        "description": [
+          "try tente une operation risquee.",
+          "except gere une erreur precise si elle arrive."
+        ],
+        "code": "text = \"42\"\n\ntry:\n    value = int(text)\n    print(value)\nexcept ValueError:\n    print(\"not a number\")",
+        "output": "42",
+        "commonMistake": "Attraper Exception partout sans savoir pourquoi.",
+        "memo": "Attrape l'erreur attendue, pas tout le ciel."
+      },
+      {
+        "id": "raise",
+        "title": "raise",
+        "description": [
+          "raise signale qu'une donnee est invalide.",
+          "Le programme appelant peut alors reagir."
+        ],
+        "code": "def set_age(age: int) -> int:\n    if age < 0:\n        raise ValueError(\"age must be positive\")\n    return age",
+        "output": "",
+        "commonMistake": "Renvoyer None pour une erreur qui doit etre visible.",
+        "memo": "raise dit clairement : ici, ca ne passe pas."
+      },
+      {
+        "id": "finally",
+        "title": "finally",
+        "description": [
+          "finally s'execute apres try et except.",
+          "Il sert surtout au nettoyage."
+        ],
+        "code": "try:\n    print(\"work\")\nfinally:\n    print(\"clean\")",
+        "output": "work\nclean",
+        "commonMistake": "Mettre la logique principale dans finally.",
+        "memo": "finally range la table, meme si le repas a rate."
+      }
+    ]
+  },
+  {
+    "id": "data-archivist",
+    "title": "04 - Data Archivist",
+    "shortTitle": "04 Fichiers",
+    "summary": "On manipule des fichiers et des flux. Le but est de lire, ecrire et fermer proprement.",
+    "status": "Code present",
+    "focus": "Fichiers",
+    "concepts": [
+      {
+        "id": "lecture-fichier",
+        "title": "Lire un fichier",
+        "description": [
+          "open ouvre un fichier.",
+          "read recupere son contenu sous forme de texte."
+        ],
+        "code": "file = open(\"notes.txt\", \"r\", encoding=\"utf-8\")\ntext = file.read()\nfile.close()\nprint(text)",
+        "output": "",
+        "commonMistake": "Oublier de fermer le fichier apres la lecture.",
+        "memo": "Ouvrir un fichier cree une responsabilite."
+      },
+      {
+        "id": "with-fichier",
+        "title": "with",
+        "description": [
+          "with ferme le fichier automatiquement.",
+          "C'est la forme la plus propre pour lire ou ecrire."
+        ],
+        "code": "with open(\"notes.txt\", \"w\", encoding=\"utf-8\") as file:\n    file.write(\"revision\")",
+        "output": "",
+        "commonMistake": "Utiliser file apres la fin du bloc with.",
+        "memo": "Dans with, le fichier est ouvert. Apres, il est ferme."
+      },
+      {
+        "id": "erreurs-fichier",
+        "title": "Erreurs de fichier",
+        "description": [
+          "Un fichier peut manquer.",
+          "Il faut prevoir ce cas pour eviter un crash sec."
+        ],
+        "code": "try:\n    with open(\"missing.txt\", \"r\", encoding=\"utf-8\") as file:\n        print(file.read())\nexcept FileNotFoundError:\n    print(\"file not found\")",
+        "output": "file not found",
+        "commonMistake": "Supposer que le fichier existe toujours.",
+        "memo": "Un chemin est une hypothese, pas une garantie."
+      }
+    ]
+  },
+  {
+    "id": "data-quest",
+    "title": "05 - Data Quest",
+    "shortTitle": "05 Data",
+    "summary": "On travaille les structures de donnees. Les listes, dictionnaires et generateurs deviennent des outils de tri.",
+    "status": "Code present",
+    "focus": "Collections",
+    "concepts": [
+      {
+        "id": "listes",
+        "title": "Listes",
+        "description": [
+          "Une liste garde plusieurs valeurs dans l'ordre.",
+          "On peut la parcourir, filtrer, ou transformer."
+        ],
+        "code": "scores = [4, 8, 2]\npassed = [score for score in scores if score >= 5]\nprint(passed)",
+        "output": "[8]",
+        "commonMistake": "Confondre l'index et la valeur.",
+        "memo": "La liste est une file ordonnee."
+      },
+      {
+        "id": "dictionnaires",
+        "title": "Dictionnaires",
+        "description": [
+          "Un dictionnaire relie une cle a une valeur.",
+          "Il sert quand un nom doit retrouver une donnee."
+        ],
+        "code": "stock = {\"tea\": 3, \"rice\": 1}\nstock[\"tea\"] += 1\nprint(stock[\"tea\"])",
+        "output": "4",
+        "commonMistake": "Lire une cle qui n'existe pas.",
+        "memo": "La cle est l'adresse. La valeur est ce qu'on y trouve."
+      },
+      {
+        "id": "generateurs",
+        "title": "Generateurs",
+        "description": [
+          "Un generateur produit les valeurs une par une.",
+          "yield suspend la fonction sans tout stocker."
+        ],
+        "code": "def count_to_three():\n    for number in range(1, 4):\n        yield number\n\nfor value in count_to_three():\n    print(value)",
+        "output": "1\n2\n3",
+        "commonMistake": "Croire qu'un generateur est une liste deja remplie.",
+        "memo": "yield donne une valeur, puis garde la place."
+      }
+    ]
+  },
+  {
+    "id": "code-nexus",
+    "title": "06 - Code Nexus",
+    "shortTitle": "06 ABC",
+    "summary": "On organise des traitements avec des classes compatibles. Le meme appel peut fonctionner sur plusieurs types d'objets.",
+    "status": "Code present",
+    "focus": "Polymorphisme",
+    "concepts": [
+      {
+        "id": "classes-abstraites",
+        "title": "Classes abstraites",
+        "description": [
+          "Une classe abstraite definit un contrat.",
+          "Les enfants doivent fournir les methodes demandees."
+        ],
+        "code": "from abc import ABC, abstractmethod\n\nclass Processor(ABC):\n    @abstractmethod\n    def run(self, text: str) -> str:\n        pass",
+        "output": "",
+        "commonMistake": "Instancier directement une classe abstraite.",
+        "memo": "L'abstrait dit quoi faire. L'enfant dit comment."
+      },
+      {
+        "id": "polymorphisme",
+        "title": "Polymorphisme",
+        "description": [
+          "Des objets differents peuvent partager la meme methode.",
+          "Le code appelant reste simple."
+        ],
+        "code": "class Upper:\n    def run(self, text: str) -> str:\n        return text.upper()\n\nclass Lower:\n    def run(self, text: str) -> str:\n        return text.lower()\n\nfor tool in [Upper(), Lower()]:\n    print(tool.run(\"Py\"))",
+        "output": "PY\npy",
+        "commonMistake": "Tester le type partout au lieu de faire confiance a la methode.",
+        "memo": "Meme bouton, machines differentes."
+      },
+      {
+        "id": "pipeline",
+        "title": "Pipeline",
+        "description": [
+          "Un pipeline enchaine plusieurs traitements.",
+          "Chaque etape recoit le resultat de la precedente."
+        ],
+        "code": "def strip_text(text: str) -> str:\n    return text.strip()\n\ndef shout(text: str) -> str:\n    return text.upper()\n\nvalue = shout(strip_text(\"  hi  \"))\nprint(value)",
+        "output": "HI",
+        "commonMistake": "Melanger toutes les etapes dans une seule grosse fonction.",
+        "memo": "Un pipeline avance par petites transformations."
+      }
+    ]
+  },
+  {
+    "id": "the-codex",
+    "title": "07 - The Codex",
+    "shortTitle": "07 Imports",
+    "summary": "Ce sujet sert de repere pour les modules et packages. Le code local n'est pas encore present dans le dossier analyse.",
+    "status": "Sujet present, code non detecte",
+    "focus": "Organisation",
+    "concepts": [
+      {
+        "id": "modules",
+        "title": "Modules",
+        "description": [
+          "Un module est un fichier Python importable.",
+          "Il range des fonctions ou des classes reutilisables."
+        ],
+        "code": "# tools.py\ndef add(a: int, b: int) -> int:\n    return a + b\n\n# main.py\nfrom tools import add\nprint(add(2, 3))",
+        "output": "5",
+        "commonMistake": "Executer du code au chargement du module sans le vouloir.",
+        "memo": "Un module est une boite a outils."
+      },
+      {
+        "id": "packages",
+        "title": "Packages",
+        "description": [
+          "Un package est un dossier de modules.",
+          "__init__.py controle ce que le dossier expose."
+        ],
+        "code": "from toolkit.maths import add\n\nprint(add(1, 2))",
+        "output": "3",
+        "commonMistake": "Oublier que le chemin d'import depend du dossier de lancement.",
+        "memo": "Le package donne une adresse aux fichiers Python."
+      },
+      {
+        "id": "imports",
+        "title": "Imports",
+        "description": [
+          "import charge un module.",
+          "from ... import ... prend un nom precis dans ce module."
+        ],
+        "code": "import math\nfrom pathlib import Path\n\nprint(math.sqrt(9))\nprint(Path(\"notes.txt\").suffix)",
+        "output": "3.0\n.txt",
+        "commonMistake": "Donner le meme nom a son fichier qu'un module standard.",
+        "memo": "L'import indique a Python ou chercher le code."
+      }
+    ]
+  },
+  {
+    "id": "data-deck",
+    "title": "08 - DataDeck",
+    "shortTitle": "08 Patterns",
+    "summary": "Ce sujet prolonge la POO avec des patrons simples. Il aide a separer creation, capacites et strategies.",
+    "status": "Sujet present, code non detecte",
+    "focus": "Design patterns",
+    "concepts": [
+      {
+        "id": "factory",
+        "title": "Factory",
+        "description": [
+          "Une factory cree des objets pour le reste du code.",
+          "Le code appelant connait moins les classes concretes."
+        ],
+        "code": "class User:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\ndef create_user(name: str) -> User:\n    return User(name)\n\nprint(create_user(\"Ada\").name)",
+        "output": "Ada",
+        "commonMistake": "Mettre trop de logique metier dans la factory.",
+        "memo": "La factory fabrique. Elle ne doit pas tout decider."
+      },
+      {
+        "id": "interfaces-capacites",
+        "title": "Interfaces de capacite",
+        "description": [
+          "Une capacite decrit ce qu'un objet sait faire.",
+          "Elle evite de forcer tous les objets a tout avoir."
+        ],
+        "code": "class CanLog:\n    def log(self, message: str) -> None:\n        print(message)\n\nlogger = CanLog()\nlogger.log(\"ready\")",
+        "output": "ready",
+        "commonMistake": "Heriter d'une classe juste pour partager un nom.",
+        "memo": "Une capacite repond a la question : que sait faire cet objet ?"
+      },
+      {
+        "id": "strategy",
+        "title": "Strategy",
+        "description": [
+          "Une strategy deplace un choix dans un objet.",
+          "On peut changer le comportement sans changer le reste."
+        ],
+        "code": "def loud(text: str) -> str:\n    return text.upper()\n\ndef apply(text: str, strategy) -> str:\n    return strategy(text)\n\nprint(apply(\"go\", loud))",
+        "output": "GO",
+        "commonMistake": "Utiliser une grande chaine de if au lieu d'une strategie.",
+        "memo": "La strategie est le plan choisi pour agir."
+      }
+    ]
+  },
+  {
+    "id": "funcmage",
+    "title": "09 - FuncMage",
+    "shortTitle": "09 Fonctions",
+    "summary": "Ce sujet regroupe les outils fonctionnels. Les fonctions deviennent des valeurs que l'on passe, stocke et transforme.",
+    "status": "Sujet present, code non detecte",
+    "focus": "Fonctionnel",
+    "concepts": [
+      {
+        "id": "lambda",
+        "title": "lambda",
+        "description": [
+          "lambda cree une petite fonction anonyme.",
+          "Elle est utile pour trier ou transformer rapidement."
+        ],
+        "code": "names = [\"zoe\", \"ada\", \"lin\"]\nprint(sorted(names, key=lambda name: len(name)))",
+        "output": "['ada', 'lin', 'zoe']",
+        "commonMistake": "Utiliser lambda pour une logique trop longue.",
+        "memo": "lambda tient sur une idee courte."
+      },
+      {
+        "id": "closures",
+        "title": "Closures",
+        "description": [
+          "Une closure garde une variable de son contexte.",
+          "Elle permet de creer une fonction avec memoire."
+        ],
+        "code": "def make_prefix(prefix: str):\n    def add_prefix(text: str) -> str:\n        return prefix + text\n    return add_prefix\n\nstar = make_prefix(\"* \")\nprint(star(\"note\"))",
+        "output": "* note",
+        "commonMistake": "Utiliser une variable globale alors qu'une closure suffit.",
+        "memo": "La fonction se souvient de l'endroit ou elle est nee."
+      },
+      {
+        "id": "decorateurs",
+        "title": "Decorateurs",
+        "description": [
+          "Un decorateur enveloppe une fonction.",
+          "Il ajoute un comportement sans changer son appel."
+        ],
+        "code": "def announce(func):\n    def wrapper():\n        print(\"start\")\n        func()\n    return wrapper\n\n@announce\ndef work():\n    print(\"work\")\n\nwork()",
+        "output": "start\nwork",
+        "commonMistake": "Oublier de renvoyer wrapper dans le decorateur.",
+        "memo": "Le decorateur ajoute une couche autour de la fonction."
+      }
+    ]
+  },
+  {
+    "id": "the-matrix",
+    "title": "10 - The Matrix",
+    "shortTitle": "10 Env",
+    "summary": "Ce sujet sort du code pur. Il couvre l'environnement de travail, les dependances et la configuration.",
+    "status": "Sujet present, code non detecte",
+    "focus": "Environnement",
+    "concepts": [
+      {
+        "id": "venv",
+        "title": "Environnement virtuel",
+        "description": [
+          "Un environnement virtuel isole les paquets Python.",
+          "Il evite de casser le Python global."
+        ],
+        "code": "python3 -m venv .venv\nsource .venv/bin/activate\npython --version",
+        "output": "",
+        "commonMistake": "Installer les dependances sans activer le venv.",
+        "memo": "Un venv est une salle separee pour ton projet."
+      },
+      {
+        "id": "requirements",
+        "title": "requirements.txt",
+        "description": [
+          "Ce fichier liste les dependances pip.",
+          "Il permet de reconstruire le meme environnement."
+        ],
+        "code": "pip install -r requirements.txt\npip freeze > requirements.txt",
+        "output": "",
+        "commonMistake": "Commiter le dossier du venv au lieu de commiter la liste.",
+        "memo": "On partage la recette, pas toute la cuisine."
+      },
+      {
+        "id": "variables-env",
+        "title": "Variables d'environnement",
+        "description": [
+          "Une variable d'environnement configure le programme.",
+          "Elle evite d'ecrire des secrets dans le code."
+        ],
+        "code": "import os\n\nmode = os.getenv(\"APP_MODE\", \"dev\")\nprint(mode)",
+        "output": "dev",
+        "commonMistake": "Commiter un vrai fichier .env avec des secrets.",
+        "memo": ".env.example montre les noms. .env garde les valeurs."
+      }
+    ]
+  },
+  {
+    "id": "cosmic-data",
+    "title": "11 - Cosmic Data",
+    "shortTitle": "11 Pydantic",
+    "summary": "Ce sujet introduit Pydantic. On decrit les donnees attendues, puis Pydantic valide et convertit.",
+    "status": "Sujet present, code non detecte",
+    "focus": "Validation",
+    "concepts": [
+      {
+        "id": "basemodel-field",
+        "title": "BaseModel et Field",
+        "description": [
+          "BaseModel cree un modele valide.",
+          "Field ajoute des regles sur une donnee."
+        ],
+        "code": "from pydantic import BaseModel, Field\n\nclass Item(BaseModel):\n    name: str\n    quantity: int = Field(ge=0)\n\nprint(Item(name=\"book\", quantity=\"2\"))",
+        "output": "name='book' quantity=2",
+        "commonMistake": "Oublier que Pydantic peut convertir certains types.",
+        "memo": "Le modele decrit la forme. Pydantic verifie l'entree."
+      },
+      {
+        "id": "model-validator",
+        "title": "model_validator",
+        "description": [
+          "Un validateur verifie une regle entre plusieurs champs.",
+          "Il sert quand un seul type ne suffit pas."
+        ],
+        "code": "from pydantic import BaseModel, model_validator\n\nclass Range(BaseModel):\n    start: int\n    end: int\n\n    @model_validator(mode=\"after\")\n    def check_order(self):\n        if self.end < self.start:\n            raise ValueError(\"end must be after start\")\n        return self",
+        "output": "",
+        "commonMistake": "Utiliser une ancienne forme de validateur avec Pydantic v2.",
+        "memo": "Le validateur regarde l'objet complet."
+      },
+      {
+        "id": "modeles-imbriques",
+        "title": "Modeles imbriques",
+        "description": [
+          "Un modele peut contenir un autre modele.",
+          "Cela structure les donnees complexes par petits morceaux."
+        ],
+        "code": "from pydantic import BaseModel\n\nclass User(BaseModel):\n    name: str\n\nclass Team(BaseModel):\n    members: list[User]\n\nteam = Team(members=[{\"name\": \"Ada\"}])\nprint(team.members[0].name)",
+        "output": "Ada",
+        "commonMistake": "Valider une grosse structure sans la decouper.",
+        "memo": "Un grand schema devient plus clair avec de petits modeles."
+      }
+    ]
+  }
+];

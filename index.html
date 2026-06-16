@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Piscine Python - Recap</title>
+    <meta
+      name="description"
+      content="Notebook local de revision pour les notions Python vues pendant la Piscine Python."
+    >
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Aller au contenu</a>
+
+    <header class="topbar">
+      <p class="eyebrow">Notebook de survie</p>
+      <h1>Piscine Python</h1>
+      <p data-reading>
+        Des rappels courts, des exemples simples, et les pieges a revoir avant une evaluation.
+      </p>
+    </header>
+
+    <aside class="sidebar" aria-label="Navigation des projets">
+      <div class="sidebar-header">
+        <h2>Projets</h2>
+        <button id="show-all" class="plain-button" type="button">Tout afficher</button>
+      </div>
+      <nav id="project-nav" class="timeline" aria-label="Frise des projets"></nav>
+    </aside>
+
+    <main id="content" class="content" tabindex="-1">
+      <section class="toolbar" aria-label="Outils de revision">
+        <label class="search-label" for="search-input">Recherche</label>
+        <input
+          id="search-input"
+          type="search"
+          autocomplete="off"
+          placeholder="classe, exception, fichier..."
+        >
+        <button id="reading-toggle" class="toggle-button" type="button" aria-pressed="false">
+          Mode lecture assistee
+        </button>
+      </section>
+
+      <section id="search-panel" class="search-panel" hidden>
+        <div class="section-heading">
+          <h2>Resultats</h2>
+          <button id="clear-search" class="plain-button" type="button">Retour a la frise</button>
+        </div>
+        <ul id="search-results" class="result-list"></ul>
+      </section>
+
+      <section id="project-panel" class="project-panel" aria-live="polite"></section>
+    </main>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/reading-mode.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
