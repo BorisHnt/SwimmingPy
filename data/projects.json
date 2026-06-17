@@ -284,18 +284,176 @@
     "name": "Growing Code",
     "shortTitle": "01 Growing",
     "navTitle": "Growing Code",
-    "summary": "Le départ du parcours. On revoit les bases : fonctions, variables, conditions et boucles.",
+    "summary": "Le départ du parcours. On apprend à écrire de petites fonctions, lire des entrées, afficher des résultats, calculer, choisir avec if, puis répéter avec des boucles ou de la récursion.",
     "status": "Code présent",
     "focus": "Bases Python",
     "objectives": [
-      "Revoir les notions centrales : bases Python.",
-      "Identifier les erreurs fréquentes avant une évaluation.",
-      "Garder un exemple minimal sous la main."
+      "Écrire une fonction isolée, sans programme principal.",
+      "Manipuler les entrées, les sorties et les conversions simples.",
+      "Utiliser les conditions, les boucles et la récursion sur de petits cas.",
+      "Garder un code lisible avec des noms clairs, des types et flake8."
     ],
     "concepts": [
       {
+        "id": "fonction-seule",
+        "title": "Écrire seulement la fonction demandée",
+        "level": "base",
+        "tags": [
+          "fonctions",
+          "fichier",
+          "tests"
+        ],
+        "description": [
+          "Dans ce projet, chaque fichier contient une fonction précise.",
+          "Le fichier ne doit pas lancer de code tout seul au moment où il est importé.",
+          "Le correcteur ou le fichier de test importe ta fonction puis l’appelle.",
+          "Si tu ajoutes des appels en bas du fichier, tu peux créer une sortie en trop."
+        ],
+        "whyItMatters": [
+          "Un test automatique attend souvent de contrôler lui-même l’appel de la fonction.",
+          "Un fichier propre est plus simple à importer, tester et corriger."
+        ],
+        "code": "def say_ready() -> None:\n    print(\"ready\")",
+        "output": "ready",
+        "commonMistake": "Ajouter say_ready() en bas du fichier pour tester et oublier de l’enlever.",
+        "howToSpot": "La fonction semble correcte, mais le test affiche deux fois ou affiche au mauvais moment.",
+        "fix": "Teste depuis un autre fichier ou un shell Python, puis laisse le fichier de rendu avec la fonction seule.",
+        "memo": "Dans ce chapitre, le fichier définit. Le test appelle."
+      },
+      {
+        "id": "print-input",
+        "title": "print() et input()",
+        "level": "base",
+        "tags": [
+          "terminal",
+          "print",
+          "input"
+        ],
+        "description": [
+          "print() écrit une information dans le terminal.",
+          "input() attend que l’utilisateur saisisse du texte.",
+          "Même si la personne tape un nombre, input() renvoie d’abord une chaîne de caractères.",
+          "Ces deux fonctions sont utiles pour les premiers exercices interactifs."
+        ],
+        "whyItMatters": [
+          "Beaucoup de fonctions du début dialoguent directement avec le terminal.",
+          "Comprendre ce qui est lu et ce qui est affiché évite les sorties inattendues."
+        ],
+        "code": "name = input(\"Name: \")\nprint(\"Hello\", name)",
+        "output": "Name: Ada\nHello Ada",
+        "commonMistake": "Croire que input() renvoie déjà un nombre ou un type spécial.",
+        "howToSpot": "Une addition donne une concaténation, ou Python refuse une opération mathématique.",
+        "fix": "Convertis explicitement avec int() quand tu veux faire un calcul.",
+        "memo": "input lit du texte. print affiche du texte."
+      },
+      {
+        "id": "variables-affectation",
+        "title": "Variables et affectation",
+        "level": "base",
+        "tags": [
+          "variables",
+          "noms",
+          "valeurs"
+        ],
+        "description": [
+          "Une variable donne un nom à une valeur.",
+          "Le signe = ne veut pas dire “égal” comme en maths.",
+          "Il signifie “range cette valeur dans ce nom”.",
+          "Un nom clair rend la fonction plus facile à relire."
+        ],
+        "whyItMatters": [
+          "Les petits calculs deviennent vite confus si les valeurs n’ont pas de nom.",
+          "Un bon nom réduit le besoin de commentaires."
+        ],
+        "code": "width = 4\nheight = 3\narea = width * height\nprint(area)",
+        "output": "12",
+        "commonMistake": "Réutiliser un nom vague comme x ou data pour tout.",
+        "howToSpot": "Tu dois relire tout le code pour savoir ce que contient la variable.",
+        "fix": "Choisis un nom qui dit ce que la valeur représente.",
+        "memo": "Une variable est une étiquette posée sur une valeur."
+      },
+      {
+        "id": "types-simples",
+        "title": "Types simples : str, int et None",
+        "level": "base",
+        "tags": [
+          "types",
+          "str",
+          "int",
+          "None"
+        ],
+        "description": [
+          "str représente du texte.",
+          "int représente un nombre entier.",
+          "None représente l’absence de valeur utile.",
+          "Une fonction qui affiche seulement quelque chose peut être annotée avec -> None."
+        ],
+        "whyItMatters": [
+          "Le type indique ce que tu peux faire avec une valeur.",
+          "Additionner des nombres et assembler du texte ne suivent pas les mêmes règles."
+        ],
+        "code": "label = \"seeds\"\ncount = 5\nprint(label, count)",
+        "output": "seeds 5",
+        "commonMistake": "Mélanger texte et nombre sans conversion.",
+        "howToSpot": "Python signale une erreur avec str et int, ou le résultat ressemble à du collage de texte.",
+        "fix": "Convertis au bon moment avec int() ou str(), selon le besoin.",
+        "memo": "Avant d’agir sur une valeur, demande-toi de quel type elle est."
+      },
+      {
+        "id": "conversion-int",
+        "title": "Convertir une saisie avec int()",
+        "level": "base",
+        "tags": [
+          "input",
+          "int",
+          "conversion"
+        ],
+        "description": [
+          "input() renvoie toujours du texte.",
+          "Pour calculer avec une saisie numérique, il faut convertir ce texte.",
+          "int() transforme une chaîne compatible en entier.",
+          "Dans ce projet, on reste sur des entrées simples et valides."
+        ],
+        "whyItMatters": [
+          "Sans conversion, les calculs donnent une erreur ou un résultat incohérent.",
+          "C’est un réflexe de base pour tous les exercices avec nombres saisis."
+        ],
+        "code": "days_text = input(\"Days: \")\ndays = int(days_text)\nprint(days + 1)",
+        "output": "Days: 4\n5",
+        "commonMistake": "Faire days_text + 1 directement.",
+        "howToSpot": "Python dit qu’il ne peut pas additionner str et int.",
+        "fix": "Sépare la lecture, la conversion, puis le calcul.",
+        "memo": "Lire, convertir, calculer."
+      },
+      {
+        "id": "expressions-calculs",
+        "title": "Expressions et calculs",
+        "level": "base",
+        "tags": [
+          "calculs",
+          "opérateurs",
+          "expressions"
+        ],
+        "description": [
+          "Une expression produit une valeur.",
+          "Les opérateurs comme +, -, * et / permettent de calculer.",
+          "Tu peux stocker le résultat dans une variable avant de l’afficher.",
+          "Découper un calcul rend souvent la lecture plus simple."
+        ],
+        "whyItMatters": [
+          "Les exercices de surface, total ou compteur reposent sur des expressions simples.",
+          "Un calcul nommé est plus facile à vérifier qu’une formule longue dans print()."
+        ],
+        "code": "length = 6\nwidth = 2\narea = length * width\nprint(area)",
+        "output": "12",
+        "commonMistake": "Mettre tout le calcul dans print() et ne plus comprendre l’erreur.",
+        "howToSpot": "Le résultat est faux, mais tu ne sais pas quelle partie du calcul vérifier.",
+        "fix": "Nomme les étapes importantes avec des variables intermédiaires.",
+        "memo": "Un calcul clair se relit comme une phrase."
+      },
+      {
         "id": "fonctions-return",
-        "title": "Fonctions et return",
+        "title": "Fonctions, print et return",
         "level": "base",
         "tags": [
           "fonctions",
@@ -304,76 +462,128 @@
         ],
         "description": [
           "Une fonction range une action dans un nom.",
+          "print affiche une information dans le terminal.",
           "return renvoie une valeur au code qui appelle la fonction.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "Dans ce premier projet, certaines fonctions affichent directement au lieu de renvoyer une valeur."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "Les consignes peuvent attendre une sortie terminal ou une valeur renvoyée.",
+          "Confondre print et return crée souvent des tests qui échouent malgré un affichage visible."
         ],
-        "code": "def double(number: int) -> int:\n    return number * 2\n\nprint(double(4))",
+        "code": "def double(number: int) -> int:\n    return number * 2\n\nresult = double(4)\nprint(result)",
         "output": "8",
-        "commonMistake": "Afficher avec print au lieu de renvoyer avec return.",
-        "howToSpot": "La console affiche une valeur, mais un test indique que la fonction renvoie None.",
-        "fix": "Décide si la fonction doit afficher ou renvoyer. Pour un calcul, préfère return.",
-        "memo": "print parle à l'écran. return parle au programme."
+        "commonMistake": "Utiliser print dans une fonction qui devrait renvoyer une valeur.",
+        "howToSpot": "La console affiche une valeur, mais le code qui appelle la fonction reçoit None.",
+        "fix": "Demande-toi si la fonction doit parler au terminal ou donner une valeur au programme.",
+        "memo": "print parle au terminal. return parle au code."
       },
       {
-        "id": "conditions",
-        "title": "Conditions",
+        "id": "conditions-comparaisons",
+        "title": "Conditions et comparaisons",
         "level": "base",
         "tags": [
-          "conditions",
-          "indentation",
-          "logique"
+          "if",
+          "booléens",
+          "comparaisons"
         ],
         "description": [
-          "Une condition choisit un chemin.",
-          "Le bloc indenté s'exécute seulement si le test est vrai.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "Une condition choisit un chemin dans le code.",
+          "Les comparaisons comme >, <, == ou != produisent un booléen.",
+          "Un booléen vaut True ou False.",
+          "Le bloc indenté sous if s’exécute seulement si le test est vrai."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "Les exercices de décision reposent sur des seuils simples.",
+          "Une comparaison mal choisie change le comportement sur les limites."
         ],
-        "code": "water = 3\n\nif water <= 0:\n    print(\"empty\")\nelse:\n    print(\"ready\")",
-        "output": "ready",
-        "commonMistake": "Oublier les deux-points après if ou else.",
-        "howToSpot": "Le code attendu ne se lance jamais, ou Python signale une erreur de syntaxe près du if.",
-        "fix": "Lis le test comme une phrase et vérifie les deux-points et l'indentation.",
+        "code": "age = 8\n\nif age >= 7:\n    print(\"old enough\")\nelse:\n    print(\"too young\")",
+        "output": "old enough",
+        "commonMistake": "Utiliser = au lieu de == dans une condition.",
+        "howToSpot": "Python signale une erreur de syntaxe ou la condition ne teste pas ce que tu crois.",
+        "fix": "Lis la comparaison à voix haute et vérifie les cas limites.",
         "memo": "if pose une question. Le bloc donne la réponse."
       },
       {
-        "id": "boucles",
-        "title": "Boucles",
+        "id": "chaines-methodes",
+        "title": "Chaînes de caractères et méthodes utiles",
         "level": "base",
         "tags": [
-          "boucles",
-          "listes",
+          "str",
+          "méthodes",
+          "formatage"
+        ],
+        "description": [
+          "Une chaîne de caractères représente du texte.",
+          "Les méthodes de chaîne permettent de transformer ou nettoyer ce texte.",
+          "Par exemple, une méthode peut changer la casse ou retirer des espaces.",
+          "Ces transformations sont utiles avant d’afficher une phrase propre."
+        ],
+        "whyItMatters": [
+          "Les premiers exercices affichent souvent du texte construit à partir de valeurs.",
+          "Un texte propre rend les sorties plus faciles à comparer."
+        ],
+        "code": "seed = \"basil\"\nprint(seed.capitalize())",
+        "output": "Basil",
+        "commonMistake": "Oublier les parenthèses quand on appelle une méthode.",
+        "howToSpot": "Le terminal affiche quelque chose comme <built-in method ...> au lieu du texte attendu.",
+        "fix": "Écris la méthode avec ses parenthèses, même si elle ne prend pas d’argument.",
+        "memo": "Une méthode de chaîne est une action attachée au texte."
+      },
+      {
+        "id": "boucles-range",
+        "title": "Boucles for et range()",
+        "level": "base",
+        "tags": [
+          "for",
+          "range",
           "itération"
         ],
         "description": [
           "Une boucle répète une action.",
-          "for sert quand on connaît une séquence à parcourir.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "for sert à parcourir une séquence de valeurs.",
+          "range() crée une suite de nombres à parcourir.",
+          "Attention : la borne de fin de range() n’est pas incluse."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "Les compteurs et affichages répétés demandent une boucle simple.",
+          "Comprendre range() évite les erreurs de début ou de fin."
         ],
-        "code": "plants = [\"basil\", \"mint\", \"sage\"]\n\nfor plant in plants:\n    print(plant)",
-        "output": "basil\nmint\nsage",
-        "commonMistake": "Modifier une liste pendant qu'on la parcourt.",
-        "howToSpot": "La boucle saute des éléments, tourne trop longtemps, ou modifie une liste au mauvais moment.",
-        "fix": "Parcours une copie si tu dois modifier la collection, ou construis une nouvelle liste.",
-        "memo": "for lit chaque élément, un par un."
+        "code": "for day in range(1, 4):\n    print(day)",
+        "output": "1\n2\n3",
+        "commonMistake": "Penser que range(1, 4) affiche aussi 4.",
+        "howToSpot": "Il manque le dernier nombre attendu, ou un nombre en trop apparaît.",
+        "fix": "Souviens-toi que range(start, stop) s’arrête avant stop.",
+        "memo": "range donne le départ, puis s’arrête juste avant la borne finale."
+      },
+      {
+        "id": "recursion-base",
+        "title": "Récursion simple",
+        "level": "base",
+        "tags": [
+          "récursion",
+          "fonction",
+          "cas d’arrêt"
+        ],
+        "description": [
+          "Une fonction récursive s’appelle elle-même.",
+          "Elle doit toujours avoir un cas d’arrêt.",
+          "Sans cas d’arrêt, elle continue jusqu’à dépasser la limite de récursion.",
+          "Pour débuter, compare-la à une boucle qui avance étape par étape."
+        ],
+        "whyItMatters": [
+          "Ce projet compare une version itérative et une version récursive.",
+          "Comprendre le cas d’arrêt évite une erreur très fréquente."
+        ],
+        "code": "def count(day: int, limit: int) -> None:\n    if day > limit:\n        return\n    print(day)\n    count(day + 1, limit)\n\ncount(1, 3)",
+        "output": "1\n2\n3",
+        "commonMistake": "Oublier de rapprocher l’appel récursif du cas d’arrêt.",
+        "howToSpot": "Python finit par afficher RecursionError ou le programme ne s’arrête pas.",
+        "fix": "Vérifie le cas d’arrêt, puis vérifie que chaque appel progresse vers ce cas.",
+        "memo": "Récursion = un pas, puis le même problème plus petit."
       },
       {
         "id": "type-hints",
-        "title": "Type hints",
+        "title": "Type hints et mypy",
         "level": "base",
         "tags": [
           "type hints",
@@ -382,20 +592,72 @@
         ],
         "description": [
           "Les annotations indiquent les types attendus.",
-          "Elles aident la lecture et les outils comme mypy.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "Elles rendent la signature de fonction plus claire.",
+          "mypy peut signaler certaines incohérences avant l’exécution.",
+          "Dans ce projet, les annotations deviennent importantes à la fin du chapitre."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "Les types aident à comprendre ce que la fonction attend sans lire tout le corps.",
+          "Ils évitent certaines confusions entre texte, nombres et absence de valeur."
         ],
-        "code": "def greet(name: str) -> str:\n    return \"Hello \" + name",
-        "output": "Hello Ada",
-        "commonMistake": "Croire que les annotations bloquent toujours le programme.",
-        "howToSpot": "mypy ou ton éditeur montre un type incohérent entre paramètre, retour et valeur utilisée.",
-        "fix": "Aligne les annotations avec ce que la fonction utilise vraiment.",
-        "memo": "Le type hint est un panneau. Python continue souvent sa route."
+        "code": "def describe(name: str, count: int) -> None:\n    print(name, count)",
+        "output": "mint 3",
+        "commonMistake": "Mettre une annotation qui ne correspond pas à ce que la fonction utilise vraiment.",
+        "howToSpot": "mypy ou ton éditeur montre une incohérence entre paramètre, retour et valeur utilisée.",
+        "fix": "Aligne les annotations avec les valeurs réellement attendues.",
+        "memo": "Le type hint est un panneau de lecture pour toi et pour les outils."
+      },
+      {
+        "id": "flake8-style",
+        "title": "Noms exacts, flake8 et lisibilité",
+        "level": "base",
+        "tags": [
+          "flake8",
+          "noms",
+          "style"
+        ],
+        "description": [
+          "Le nom du fichier et le nom de la fonction doivent être stables.",
+          "Un correcteur importe souvent une fonction par son nom exact.",
+          "flake8 aide à garder un style régulier.",
+          "Un code lisible évite les erreurs bêtes pendant une défense."
+        ],
+        "whyItMatters": [
+          "Une fonction correcte mais mal nommée peut être impossible à tester automatiquement.",
+          "Un style propre rend les petits bugs plus visibles."
+        ],
+        "code": "def compute_total(first: int, second: int) -> int:\n    return first + second",
+        "output": "",
+        "commonMistake": "Changer légèrement le nom demandé ou utiliser une casse différente.",
+        "howToSpot": "Le test dit que la fonction est introuvable alors que le fichier existe.",
+        "fix": "Vérifie exactement le nom du fichier, le nom de la fonction et l’indentation.",
+        "memo": "Un nom attendu doit être recopié avec précision."
+      },
+      {
+        "id": "tips-debug-growing-code",
+        "title": "Tips rapides pour ce premier projet",
+        "level": "base",
+        "tags": [
+          "debug",
+          "révision",
+          "terminal"
+        ],
+        "description": [
+          "Teste une fonction à la fois.",
+          "Lis toujours l’erreur Python jusqu’à la dernière ligne.",
+          "Si une saisie est nécessaire, note exactement ce que tu tapes.",
+          "Quand tu bloques, réduis la fonction à trois lignes qui prouvent le problème."
+        ],
+        "whyItMatters": [
+          "Les bugs du début viennent souvent d’un détail : nom, indentation, conversion ou sortie en trop.",
+          "Une méthode de test simple évite de changer dix choses à la fois."
+        ],
+        "code": "def debug_value() -> None:\n    value = int(\"3\")\n    print(value + 1)",
+        "output": "4",
+        "commonMistake": "Modifier plusieurs lignes sans relancer entre chaque changement.",
+        "howToSpot": "Tu ne sais plus quelle modification a corrigé ou cassé le programme.",
+        "fix": "Change une chose, relance, observe, puis continue.",
+        "memo": "Un bug se trouve plus vite quand tu réduis le terrain."
       }
     ]
   },
@@ -406,92 +668,459 @@
     "name": "CodeCultivation",
     "shortTitle": "02 POO",
     "navTitle": "CodeCultivation",
-    "summary": "On passe aux objets. Les classes servent à regrouper données et comportements.",
+    "summary": "On passe d’un code fait de petites fonctions à un code organisé autour d’objets. Le projet installe les bases de la POO : classes, instances, état interne, méthodes, encapsulation, héritage et outils de création.",
     "status": "Code présent",
     "focus": "POO",
     "objectives": [
-      "Revoir les notions centrales : poo.",
-      "Identifier les erreurs fréquentes avant une évaluation.",
-      "Garder un exemple minimal sous la main."
+      "Comprendre comment une classe sert de modèle pour créer des objets.",
+      "Gérer l’état d’un objet avec des attributs et des méthodes.",
+      "Protéger les données avec une interface claire.",
+      "Réutiliser le code avec l’héritage, super(), les méthodes statiques et les méthodes de classe."
     ],
     "concepts": [
       {
-        "id": "classes",
-        "title": "Classes",
+        "id": "main-guard",
+        "title": "Le bloc if __name__ == \"__main__\"",
+        "level": "base",
+        "tags": [
+          "main",
+          "import",
+          "tests"
+        ],
+        "description": [
+          "Ce bloc sert à lancer du code seulement quand le fichier est exécuté directement.",
+          "Si le fichier est importé par un test, le code placé dans ce bloc ne se lance pas.",
+          "C’est pratique pour garder des tests manuels sans polluer les imports.",
+          "À partir de ce projet, c’est un réflexe important à comprendre."
+        ],
+        "whyItMatters": [
+          "Un fichier importable ne doit pas produire de sortie surprise.",
+          "Tu peux tester ton module localement tout en laissant le correcteur contrôler les appels."
+        ],
+        "code": "def main() -> None:\n    print(\"manual test\")\n\nif __name__ == \"__main__\":\n    main()",
+        "output": "manual test",
+        "commonMistake": "Mettre du code de test au niveau global du fichier.",
+        "howToSpot": "Un import déclenche des affichages ou des actions sans que tu appelles la fonction.",
+        "fix": "Place les tests manuels dans main(), puis appelle main() sous le guard.",
+        "memo": "Importé : on définit. Exécuté : on peut tester."
+      },
+      {
+        "id": "classes-objets",
+        "title": "Classes, objets et instances",
         "level": "base",
         "tags": [
           "classes",
           "objets",
-          "self"
+          "instances"
         ],
         "description": [
-          "Une classe est un modèle.",
-          "Elle permet de créer plusieurs objets avec la même forme.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "Une classe décrit la forme générale d’un objet.",
+          "Une instance est un objet créé à partir de cette classe.",
+          "Chaque instance peut porter ses propres valeurs.",
+          "Le but est d’éviter de gérer chaque élément avec des variables séparées."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "La POO permet de regrouper les données et les actions qui vont ensemble.",
+          "Quand plusieurs objets se ressemblent, une classe évite beaucoup de duplication."
         ],
-        "code": "class Plant:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\nbasil = Plant(\"Basil\")\nprint(basil.name)",
-        "output": "Basil",
-        "commonMistake": "Oublier self dans les méthodes.",
-        "howToSpot": "Python indique qu'un argument manque, souvent self, ou que l'attribut n'existe pas.",
-        "fix": "Mets self en premier paramètre des méthodes d'instance.",
-        "memo": "La classe est le moule. L'objet est ce qu'on fabrique."
+        "code": "class Plant:\n    pass\n\nbasil = Plant()\nmint = Plant()\nprint(type(basil).__name__)",
+        "output": "Plant",
+        "commonMistake": "Confondre la classe Plant et l’objet basil créé avec Plant().",
+        "howToSpot": "Tu essaies d’utiliser un attribut sur la classe alors qu’il appartient à une instance.",
+        "fix": "Demande-toi si tu parles du modèle général ou d’un objet précis.",
+        "memo": "La classe est le plan. L’instance est l’objet construit."
       },
       {
-        "id": "attributs-methodes",
-        "title": "Attributs et méthodes",
+        "id": "init-constructeur",
+        "title": "__init__ et construction d’objet",
         "level": "base",
         "tags": [
-          "attributs",
-          "méthodes",
-          "self"
+          "__init__",
+          "constructeur",
+          "attributs"
         ],
         "description": [
-          "Un attribut garde une donnée.",
-          "Une méthode fait une action avec l'objet.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "__init__ initialise une nouvelle instance.",
+          "C’est là que tu ranges les valeurs de départ dans self.",
+          "Les paramètres de __init__ évitent de créer un objet vide puis de le remplir à la main.",
+          "Un constructeur clair rend l’objet utilisable dès sa création."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "Les objets du projet ont besoin de valeurs de départ cohérentes.",
+          "Un bon __init__ limite les états incomplets ou incohérents."
         ],
-        "code": "class Counter:\n    def __init__(self) -> None:\n        self.value = 0\n\n    def add_one(self) -> None:\n        self.value += 1\n\ncounter = Counter()\ncounter.add_one()\nprint(counter.value)",
-        "output": "1",
-        "commonMistake": "Utiliser une variable locale au lieu de self.value.",
-        "howToSpot": "La valeur semble modifiée dans la méthode, puis revient à son ancien état.",
-        "fix": "Stocke l'état durable dans self.nom, pas dans une variable locale.",
-        "memo": "self garde la mémoire de l'objet."
+        "code": "class Plant:\n    def __init__(self, name: str, height: float) -> None:\n        self.name = name\n        self.height = height\n\nplant = Plant(\"mint\", 12.5)\nprint(plant.name)",
+        "output": "mint",
+        "commonMistake": "Oublier un paramètre dans __init__ ou passer les arguments dans le mauvais ordre.",
+        "howToSpot": "Python indique qu’un argument manque, ou les attributs contiennent des valeurs inversées.",
+        "fix": "Lis la signature de __init__ avant d’instancier la classe.",
+        "memo": "__init__ prépare l’objet pour qu’il soit utilisable tout de suite."
       },
       {
-        "id": "heritage-super",
-        "title": "Héritage et super()",
+        "id": "self-attributs",
+        "title": "self et attributs d’instance",
         "level": "base",
+        "tags": [
+          "self",
+          "attributs",
+          "état"
+        ],
+        "description": [
+          "self représente l’objet courant.",
+          "Un attribut comme self.height appartient à une instance précise.",
+          "Deux objets de la même classe peuvent donc avoir des valeurs différentes.",
+          "Sans self, la valeur disparaît souvent à la fin de la méthode."
+        ],
+        "whyItMatters": [
+          "Les méthodes doivent pouvoir lire et modifier l’état de leur objet.",
+          "Comprendre self évite la majorité des erreurs de début en POO."
+        ],
+        "code": "class Counter:\n    def __init__(self) -> None:\n        self.value = 0\n\n    def add(self) -> None:\n        self.value += 1\n\ncounter = Counter()\ncounter.add()\nprint(counter.value)",
+        "output": "1",
+        "commonMistake": "Écrire value = 0 au lieu de self.value = 0.",
+        "howToSpot": "La valeur semble changée dans une méthode, puis n’existe plus ailleurs.",
+        "fix": "Utilise self.nom quand la donnée doit appartenir à l’objet.",
+        "memo": "self garde la mémoire de l’objet."
+      },
+      {
+        "id": "methodes-instance",
+        "title": "Méthodes d’instance",
+        "level": "base",
+        "tags": [
+          "méthodes",
+          "comportement",
+          "état"
+        ],
+        "description": [
+          "Une méthode est une fonction placée dans une classe.",
+          "Elle reçoit self pour agir sur l’objet courant.",
+          "Elle peut afficher, calculer, modifier un attribut ou renvoyer une valeur.",
+          "Une bonne méthode représente une action claire de l’objet."
+        ],
+        "whyItMatters": [
+          "Les objets deviennent utiles quand ils portent aussi leur comportement.",
+          "Cela évite de manipuler leurs données depuis partout dans le programme."
+        ],
+        "code": "class Plant:\n    def __init__(self, height: float) -> None:\n        self.height = height\n\n    def grow(self, amount: float) -> None:\n        self.height += amount\n\nplant = Plant(10.0)\nplant.grow(2.5)\nprint(plant.height)",
+        "output": "12.5",
+        "commonMistake": "Créer une fonction externe qui modifie directement tous les attributs.",
+        "howToSpot": "La logique de l’objet est dispersée dans plusieurs endroits du fichier.",
+        "fix": "Place l’action dans une méthode quand elle concerne directement l’objet.",
+        "memo": "Une méthode est une action que l’objet sait faire."
+      },
+      {
+        "id": "affichage-show",
+        "title": "Méthode d’affichage dédiée",
+        "level": "base",
+        "tags": [
+          "affichage",
+          "show",
+          "lisibilité"
+        ],
+        "description": [
+          "Une méthode dédiée peut centraliser l’affichage d’un objet.",
+          "Cela évite de réécrire le même print à plusieurs endroits.",
+          "Si la présentation change, tu modifies une seule méthode.",
+          "C’est aussi plus facile à tester visuellement."
+        ],
+        "whyItMatters": [
+          "Les exercices de POO affichent souvent l’état final des objets.",
+          "Un affichage centralisé évite les sorties incohérentes."
+        ],
+        "code": "class Item:\n    def __init__(self, name: str, count: int) -> None:\n        self.name = name\n        self.count = count\n\n    def show(self) -> None:\n        print(f\"{self.name}: {self.count}\")\n\nItem(\"seed\", 4).show()",
+        "output": "seed: 4",
+        "commonMistake": "Dupliquer la même ligne d’affichage dans plusieurs méthodes.",
+        "howToSpot": "Tu dois corriger plusieurs print quand tu changes le format de sortie.",
+        "fix": "Crée une méthode unique pour afficher l’état de l’objet.",
+        "memo": "Un format d’affichage doit vivre à un seul endroit."
+      },
+      {
+        "id": "simulation-etat",
+        "title": "Simuler une évolution d’état",
+        "level": "base",
+        "tags": [
+          "simulation",
+          "range",
+          "état"
+        ],
+        "description": [
+          "Un objet peut évoluer au fil de plusieurs appels de méthode.",
+          "Une boucle permet de répéter une action plusieurs fois.",
+          "Chaque appel peut modifier un attribut de l’instance.",
+          "On obtient ainsi un état final calculé étape par étape."
+        ],
+        "whyItMatters": [
+          "Ce projet introduit des objets qui changent avec le temps.",
+          "C’est une première forme de simulation simple."
+        ],
+        "code": "class Score:\n    def __init__(self) -> None:\n        self.value = 0\n\n    def add_day(self) -> None:\n        self.value += 2\n\nscore = Score()\nfor _ in range(3):\n    score.add_day()\nprint(score.value)",
+        "output": "6",
+        "commonMistake": "Réinitialiser l’objet dans la boucle au lieu de le faire évoluer.",
+        "howToSpot": "Le résultat final reste trop petit ou ne change jamais vraiment.",
+        "fix": "Crée l’objet avant la boucle, puis appelle ses méthodes dans la boucle.",
+        "memo": "Une simulation garde le même objet et modifie son état."
+      },
+      {
+        "id": "factory-fonction-classe",
+        "title": "Créer des objets plus facilement",
+        "level": "base",
+        "tags": [
+          "factory",
+          "création",
+          "constructeur"
+        ],
+        "description": [
+          "Quand plusieurs objets se créent de la même manière, une aide de création peut clarifier le code.",
+          "Elle peut choisir des valeurs par défaut ou regrouper des paramètres.",
+          "Le but est de rendre l’instanciation plus lisible.",
+          "Il faut quand même garder la logique principale dans la classe."
+        ],
+        "whyItMatters": [
+          "Créer plusieurs objets à la main devient vite répétitif.",
+          "Une création claire réduit les erreurs d’arguments."
+        ],
+        "code": "class Plant:\n    def __init__(self, name: str, height: float) -> None:\n        self.name = name\n        self.height = height\n\ndef make_small_plant(name: str) -> Plant:\n    return Plant(name, 5.0)\n\nprint(make_small_plant(\"ivy\").height)",
+        "output": "5.0",
+        "commonMistake": "Cacher trop de logique dans la fonction de création.",
+        "howToSpot": "Tu ne sais plus quelles valeurs sont vraiment données à l’objet.",
+        "fix": "Garde la création simple et donne un nom clair à la fonction d’aide.",
+        "memo": "Une aide de création doit rendre l’objet plus clair, pas magique."
+      },
+      {
+        "id": "encapsulation-protected",
+        "title": "Encapsulation et attributs protégés",
+        "level": "intermédiaire",
+        "tags": [
+          "encapsulation",
+          "attributs protégés",
+          "validation"
+        ],
+        "description": [
+          "L’encapsulation consiste à éviter que n’importe quel code modifie directement les données internes.",
+          "En Python, un nom qui commence par _ indique “usage interne”.",
+          "Ce n’est pas un verrou absolu, mais une convention forte.",
+          "Les modifications passent alors par des méthodes prévues pour ça."
+        ],
+        "whyItMatters": [
+          "Un objet peut refuser une valeur invalide avant qu’elle ne casse le reste du programme.",
+          "Cela garde les données internes cohérentes."
+        ],
+        "code": "class Box:\n    def __init__(self, size: int) -> None:\n        self._size = size\n\n    def set_size(self, size: int) -> None:\n        if size > 0:\n            self._size = size",
+        "output": "",
+        "commonMistake": "Modifier _size directement partout parce que “ça marche”.",
+        "howToSpot": "Une valeur invalide apparaît sans passer par la validation prévue.",
+        "fix": "Utilise les méthodes publiques pour changer les attributs protégés.",
+        "memo": "Le _ dit : touche seulement si tu sais pourquoi."
+      },
+      {
+        "id": "getters-setters-validation",
+        "title": "Getters, setters et validation",
+        "level": "intermédiaire",
+        "tags": [
+          "getters",
+          "setters",
+          "validation"
+        ],
+        "description": [
+          "Un getter lit une valeur interne sans l’exposer directement.",
+          "Un setter change une valeur après vérification.",
+          "Ces méthodes donnent une porte d’entrée contrôlée vers l’état de l’objet.",
+          "Elles peuvent afficher ou signaler qu’une valeur est refusée."
+        ],
+        "whyItMatters": [
+          "Les objets qui changent doivent rester dans un état valide.",
+          "La validation évite qu’un mauvais appel casse tout plus tard."
+        ],
+        "code": "class Gauge:\n    def __init__(self) -> None:\n        self._value = 0\n\n    def set_value(self, value: int) -> None:\n        if value >= 0:\n            self._value = value\n\n    def get_value(self) -> int:\n        return self._value",
+        "output": "",
+        "commonMistake": "Faire un setter qui accepte tout sans vérifier.",
+        "howToSpot": "L’objet contient une valeur absurde alors que la classe devait la protéger.",
+        "fix": "Place la règle dans le setter et refuse les valeurs invalides tôt.",
+        "memo": "Un setter est une porte avec un contrôle à l’entrée."
+      },
+      {
+        "id": "heritage-specialisation",
+        "title": "Héritage et spécialisation",
+        "level": "intermédiaire",
         "tags": [
           "héritage",
-          "super",
+          "spécialisation",
           "poo"
         ],
         "description": [
-          "Une classe peut reprendre le code d'une autre.",
-          "super() appelle la version du parent.",
-          "Garde cette notion en version simple avant de chercher une solution plus élégante.",
-          "Un petit exemple fiable vaut mieux qu'une grande explication floue."
+          "Une classe enfant peut reprendre les attributs et méthodes d’une classe parent.",
+          "Elle ajoute ensuite ce qui la rend spéciale.",
+          "L’héritage sert quand plusieurs types partagent une base commune.",
+          "Il faut éviter de copier-coller le code du parent dans chaque enfant."
         ],
         "whyItMatters": [
-          "Cette notion revient souvent dans les exercices et les corrections.",
-          "Elle aide à produire un code plus facile à tester et à relire."
+          "Le projet demande de gérer plusieurs types proches mais pas identiques.",
+          "L’héritage réduit la duplication et rend les différences plus visibles."
         ],
-        "code": "class Animal:\n    def speak(self) -> str:\n        return \"sound\"\n\nclass Cat(Animal):\n    def speak(self) -> str:\n        return super().speak() + \" meow\"\n\nprint(Cat().speak())",
-        "output": "sound meow",
-        "commonMistake": "Réécrire tout le parent alors qu'un appel à super suffit.",
-        "howToSpot": "Le code du parent n'est plus exécuté, ou des attributs initialisés par le parent manquent.",
-        "fix": "Appelle super() quand tu veux garder l'initialisation ou le comportement du parent.",
-        "memo": "L'enfant peut garder le parent, puis ajouter sa touche."
+        "code": "class Animal:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\nclass Cat(Animal):\n    def meow(self) -> None:\n        print(self.name, \"meows\")\n\nCat(\"Milo\").meow()",
+        "output": "Milo meows",
+        "commonMistake": "Utiliser l’héritage alors que les classes ne partagent pas vraiment une base commune.",
+        "howToSpot": "La classe enfant hérite de méthodes qui n’ont aucun sens pour elle.",
+        "fix": "Hérite seulement quand la phrase “est une sorte de” reste vraie.",
+        "memo": "Un enfant garde le commun et ajoute le spécifique."
+      },
+      {
+        "id": "super-override",
+        "title": "super() et surcharge de méthode",
+        "level": "intermédiaire",
+        "tags": [
+          "super",
+          "override",
+          "héritage"
+        ],
+        "description": [
+          "Une classe enfant peut redéfinir une méthode du parent.",
+          "C’est une surcharge de méthode.",
+          "super() permet de réutiliser le comportement du parent avant d’ajouter le comportement enfant.",
+          "C’est particulièrement utile dans __init__ et dans les méthodes d’affichage."
+        ],
+        "whyItMatters": [
+          "Tu peux enrichir une classe sans réécrire tout ce qu’elle sait déjà faire.",
+          "Cela rend le code plus court et moins fragile."
+        ],
+        "code": "class Base:\n    def show(self) -> None:\n        print(\"base\")\n\nclass Child(Base):\n    def show(self) -> None:\n        super().show()\n        print(\"child\")\n\nChild().show()",
+        "output": "base\nchild",
+        "commonMistake": "Réécrire toute la méthode du parent dans la classe enfant.",
+        "howToSpot": "Une correction du parent doit être recopiée dans plusieurs enfants.",
+        "fix": "Appelle super() pour garder la partie commune, puis ajoute le reste.",
+        "memo": "super() évite de jeter le travail du parent."
+      },
+      {
+        "id": "static-class-methods",
+        "title": "staticmethod et classmethod",
+        "level": "intermédiaire",
+        "tags": [
+          "staticmethod",
+          "classmethod",
+          "décorateurs"
+        ],
+        "description": [
+          "Une méthode statique appartient à la classe mais ne reçoit ni self ni cls.",
+          "Elle sert pour une aide logique liée à la classe.",
+          "Une méthode de classe reçoit cls.",
+          "Elle peut créer une instance alternative sans écrire le nom de la classe en dur."
+        ],
+        "whyItMatters": [
+          "Ces deux outils clarifient les fonctions liées à une classe mais pas toujours à une instance.",
+          "Ils préparent aussi à des constructions plus avancées."
+        ],
+        "code": "class User:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\n    @staticmethod\n    def is_valid_name(name: str) -> bool:\n        return len(name) > 0\n\n    @classmethod\n    def anonymous(cls) -> \"User\":\n        return cls(\"anonymous\")\n\nprint(User.is_valid_name(\"Ada\"))\nprint(User.anonymous().name)",
+        "output": "True\nanonymous",
+        "commonMistake": "Utiliser self dans une méthode statique.",
+        "howToSpot": "Python indique que self n’existe pas, ou la méthode reçoit un argument inattendu.",
+        "fix": "Utilise staticmethod pour une aide sans état, classmethod pour créer via cls.",
+        "memo": "staticmethod aide. classmethod construit avec la classe."
+      },
+      {
+        "id": "composition-nested-stats",
+        "title": "Composition, classe interne et statistiques",
+        "level": "intermédiaire",
+        "tags": [
+          "composition",
+          "classe interne",
+          "statistiques",
+          "stats"
+        ],
+        "description": [
+          "Un objet peut contenir un autre objet chargé d’une responsabilité précise.",
+          "C’est de la composition.",
+          "Une classe interne peut servir à regrouper une logique très liée à la classe principale.",
+          "Par exemple, un objet peut déléguer le suivi de ses statistiques à un composant dédié."
+        ],
+        "whyItMatters": [
+          "Plus un objet grandit, plus il faut séparer les responsabilités.",
+          "Cela évite de transformer une classe en bloc énorme qui fait tout."
+        ],
+        "code": "class Task:\n    class Stats:\n        def __init__(self) -> None:\n            self.calls = 0\n\n    def __init__(self) -> None:\n        self.stats = self.Stats()\n\n    def run(self) -> None:\n        self.stats.calls += 1\n\ntask = Task()\ntask.run()\nprint(task.stats.calls)",
+        "output": "1",
+        "commonMistake": "Mettre toutes les statistiques directement dans la classe principale.",
+        "howToSpot": "La classe contient trop d’attributs et les méthodes deviennent difficiles à suivre.",
+        "fix": "Déplace une responsabilité cohérente dans un petit composant dédié.",
+        "memo": "Composition = un objet travaille avec un autre objet."
+      },
+      {
+        "id": "fonction-polymorphe-stats",
+        "title": "Fonction externe qui travaille avec plusieurs objets",
+        "level": "intermédiaire",
+        "tags": [
+          "polymorphisme",
+          "fonction",
+          "interface"
+        ],
+        "description": [
+          "Une fonction hors classe peut recevoir différents objets.",
+          "Elle reste simple si ces objets partagent une même méthode attendue.",
+          "Elle n’a pas besoin de connaître tous les détails internes.",
+          "C’est une première approche du polymorphisme."
+        ],
+        "whyItMatters": [
+          "Le code devient plus flexible quand il dépend d’un comportement plutôt que d’une classe exacte.",
+          "Cela prépare les projets suivants sur les interfaces et classes abstraites."
+        ],
+        "code": "class A:\n    def show(self) -> None:\n        print(\"A\")\n\nclass B:\n    def show(self) -> None:\n        print(\"B\")\n\ndef display(item) -> None:\n    item.show()\n\ndisplay(A())\ndisplay(B())",
+        "output": "A\nB",
+        "commonMistake": "Tester tous les types possibles avec if au lieu d’appeler la méthode commune.",
+        "howToSpot": "La fonction grossit chaque fois que tu ajoutes une nouvelle classe compatible.",
+        "fix": "Définis la méthode attendue et appelle-la directement.",
+        "memo": "Si plusieurs objets savent show(), la fonction peut juste appeler show()."
+      },
+      {
+        "id": "naming-type-hints-style-poo",
+        "title": "Nommage, type hints, flake8 et mypy en POO",
+        "level": "base",
+        "tags": [
+          "noms",
+          "type hints",
+          "flake8",
+          "mypy"
+        ],
+        "description": [
+          "Les classes utilisent généralement le style PascalCase.",
+          "Les fonctions, méthodes et variables utilisent snake_case.",
+          "Les signatures typées aident à comprendre les objets attendus.",
+          "flake8 et mypy rendent les erreurs de style ou de types plus visibles."
+        ],
+        "whyItMatters": [
+          "La POO ajoute beaucoup de noms : classes, attributs, méthodes, paramètres.",
+          "Une convention stable rend le projet plus facile à relire et à défendre."
+        ],
+        "code": "class PlantCounter:\n    def add_count(self, count: int) -> int:\n        return count + 1",
+        "output": "",
+        "commonMistake": "Mélanger les styles de nommage ou oublier les annotations sur les méthodes.",
+        "howToSpot": "Le code fonctionne mais les outils signalent beaucoup de remarques simples.",
+        "fix": "Corrige les noms, les retours annotés et les paramètres avant de chercher des bugs complexes.",
+        "memo": "Plus il y a d’objets, plus les conventions comptent."
+      },
+      {
+        "id": "tips-code-cultivation",
+        "title": "Tips rapides pour CodeCultivation",
+        "level": "base",
+        "tags": [
+          "révision",
+          "debug",
+          "poo"
+        ],
+        "description": [
+          "Commence par écrire la classe minimale.",
+          "Ajoute ensuite une méthode, puis teste une instance.",
+          "Quand un attribut ne change pas, affiche self.__dict__ pendant le debug.",
+          "Quand tu ajoutes l’héritage, vérifie d’abord que le parent fonctionne seul."
+        ],
+        "whyItMatters": [
+          "La POO peut donner l’impression que tout est lié à tout.",
+          "Une progression par petites étapes évite de chercher un bug dans dix classes à la fois."
+        ],
+        "code": "obj = Plant(\"mint\", 10.0)\nprint(obj.__dict__)",
+        "output": "{'name': 'mint', 'height': 10.0}",
+        "commonMistake": "Créer toutes les classes avant de tester la première.",
+        "howToSpot": "Quand ça casse, tu ne sais pas si le problème vient du parent, de l’enfant ou du test.",
+        "fix": "Teste le parent, puis un enfant, puis seulement les interactions.",
+        "memo": "En POO, avance classe par classe."
       }
     ]
   },
