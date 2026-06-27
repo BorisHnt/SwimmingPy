@@ -168,6 +168,10 @@ main:focus-visible {
   background: var(--line-strong);
 }
 
+.timeline-entry {
+  position: relative;
+}
+
 .timeline button {
   position: relative;
   display: grid;
@@ -211,6 +215,40 @@ main:focus-visible {
 .timeline button[aria-current="page"] .timeline-number {
   background: var(--accent);
   color: white;
+}
+
+.timeline-submenu {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.15rem 0 0.5rem 2.65rem;
+}
+
+.timeline .timeline-subitem {
+  display: grid;
+  grid-template-columns: 1.7rem 1fr;
+  gap: 0.45rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 0.38rem 0.45rem;
+}
+
+.timeline-subitem span {
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.timeline-subitem strong {
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.2;
 }
 
 .timeline-copy strong,
@@ -390,6 +428,61 @@ input[type="search"] {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   padding: 1.15rem 0;
+}
+
+.bonus-levels {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.bonus-level-card {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 12rem;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  color: var(--ink);
+  padding: 0.85rem;
+  text-decoration: none;
+}
+
+.bonus-level-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.bonus-level-card > span {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.bonus-level-card strong {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.bonus-level-card small {
+  color: var(--accent-dark);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.bonus-level-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
 }
 
 .project-overview h3 {
@@ -608,7 +701,8 @@ code {
   }
 
   .toolbar,
-  .project-overview {
+  .project-overview,
+  .bonus-levels {
     grid-template-columns: 1fr;
   }
 

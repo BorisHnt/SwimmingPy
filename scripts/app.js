@@ -24,6 +24,8 @@ function escapeHtml(value) {
 }
 
 async function loadProjects() {
+  let projects;
+
   try {
     const response = await fetch("data/projects.json", { cache: "no-store" });
 
@@ -31,29 +33,64 @@ async function loadProjects() {
       throw new Error("projects.json indisponible");
     }
 
-    return response.json();
+    projects = await response.json();
   } catch (error) {
     if (Array.isArray(window.PISCINE_PROJECTS_FALLBACK)) {
-      return window.PISCINE_PROJECTS_FALLBACK;
+      projects = window.PISCINE_PROJECTS_FALLBACK;
+    } else {
+      throw error;
     }
-
-    throw error;
   }
+
+  if (Array.isArray(window.PISCINE_BONUS_PROJECTS)) {
+    const existingIds = new Set(projects.map((project) => project.id));
+    return [
+      ...projects,
+      ...window.PISCINE_BONUS_PROJECTS.filter((project) => !existingIds.has(project.id)),
+    ];
+  }
+
+  return projects;
 }
 
 function renderTimeline(projects) {
   elements.nav.innerHTML = projects
     .map((project) => {
       const current = project.id === state.activeProjectId ? ' aria-current="page"' : "";
+      const levelMenu =
+        current && Array.isArray(project.bonusLevels)
+          ? `
+            <div class="timeline-submenu" aria-label="Niveaux bonus">
+              ${project.bonusLevels
+                .map(
+                  (level) => `
+                    <button
+                      class="timeline-subitem"
+                      type="button"
+                      data-project-id="${escapeHtml(project.id)}"
+                      data-concept-id="${escapeHtml(level.anchor)}"
+                    >
+                      <span>${escapeHtml(level.number)}</span>
+                      <strong>${escapeHtml(level.shortTitle)}</strong>
+                    </button>
+                  `,
+                )
+                .join("")}
+            </div>
+          `
+          : "";
 
       return `
-        <button type="button" data-project-id="${escapeHtml(project.id)}"${current}>
-          <span class="timeline-number">${escapeHtml(project.number || "")}</span>
-          <span class="timeline-copy">
-            <strong>${escapeHtml(project.navTitle || project.name || project.title)}</strong>
-            <span>${escapeHtml(project.focus)}</span>
-          </span>
-        </button>
+        <div class="timeline-entry">
+          <button type="button" data-project-id="${escapeHtml(project.id)}"${current}>
+            <span class="timeline-number">${escapeHtml(project.number || "")}</span>
+            <span class="timeline-copy">
+              <strong>${escapeHtml(project.navTitle || project.name || project.title)}</strong>
+              <span>${escapeHtml(project.focus)}</span>
+            </span>
+          </button>
+          ${levelMenu}
+        </div>
       `;
     })
     .join("");
@@ -80,6 +117,29 @@ function renderTags(tags) {
     <ul class="tag-list" aria-label="Tags de notion">
       ${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}
     </ul>
+  `;
+}
+
+function renderBonusLevelMenu(project) {
+  if (!Array.isArray(project.bonusLevels) || project.bonusLevels.length === 0) {
+    return "";
+  }
+
+  return `
+    <section class="bonus-levels" aria-label="Niveaux bonus">
+      ${project.bonusLevels
+        .map(
+          (level) => `
+            <a class="bonus-level-card" href="#${escapeHtml(level.anchor)}">
+              <span>${escapeHtml(level.number)}</span>
+              <strong>${escapeHtml(level.title)}</strong>
+              <small>${escapeHtml(level.status)}</small>
+              <p data-reading>${escapeHtml(level.summary)}</p>
+            </a>
+          `,
+        )
+        .join("")}
+    </section>
   `;
 }
 
@@ -152,6 +212,7 @@ function renderProject(projectId, conceptId = "", shouldScroll = true) {
           </ul>
         </div>
       </section>
+      ${renderBonusLevelMenu(project)}
       ${concepts}
     </article>
   `;
@@ -252,7 +313,7 @@ function setupEvents() {
     }
 
     clearSearch();
-    renderProject(button.dataset.projectId);
+    renderProject(button.dataset.projectId, button.dataset.conceptId || "");
   });
 
   elements.searchInput.addEventListener("input", (event) => {
