@@ -34,18 +34,18 @@ window.PISCINE_BONUS_PROJECTS = [
       },
       {
         "number": "03",
-        "shortTitle": "Advanced",
-        "title": "Niveau 03 - Advanced",
+        "shortTitle": "Challenging",
+        "title": "Niveau 03 - Challenging",
         "status": "À compléter",
-        "anchor": "bonus-advanced",
+        "anchor": "bonus-challenging",
         "summary": "Emplacement prévu pour les prochains exercices : récursivité, backtracking, graphes et recherche."
       },
       {
         "number": "04",
-        "shortTitle": "Boss",
-        "title": "Niveau 04 - Boss",
+        "shortTitle": "In Depth",
+        "title": "Niveau 04 - In Depth",
         "status": "À compléter",
-        "anchor": "bonus-expert",
+        "anchor": "bonus-in-depth",
         "summary": "Emplacement prévu pour les sujets longs : stratégie, robustesse, tests et optimisation."
       }
     ],
@@ -404,12 +404,12 @@ window.PISCINE_BONUS_PROJECTS = [
         "memo": "En matrice Python : d'abord la ligne, ensuite la colonne."
       },
       {
-        "id": "bonus-advanced",
-        "title": "Niveau 03 - Advanced : emplacement prêt",
+        "id": "bonus-challenging",
+        "title": "Niveau 03 - Challenging : emplacement prêt",
         "level": "level 03",
         "tags": [
           "à venir",
-          "advanced"
+          "challenging"
         ],
         "description": [
           "Ce niveau est prêt pour les prochains exercices. Les notions probables à renforcer ici seront la récursivité, le backtracking, les parcours de graphes, les files, les piles explicites, et les stratégies de recherche.",
@@ -428,8 +428,8 @@ window.PISCINE_BONUS_PROJECTS = [
         "memo": "Une recherche avance, s'arrête, et ne repasse pas partout sans raison."
       },
       {
-        "id": "bonus-expert",
-        "title": "Niveau 04 - Boss : stratégie d'exam",
+        "id": "bonus-in-depth",
+        "title": "Niveau 04 - In Depth : stratégie d'exam",
         "level": "level 04",
         "tags": [
           "à venir",
