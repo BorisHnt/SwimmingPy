@@ -87,6 +87,15 @@
           <p data-reading>
             En exam, le plus dur n'est pas toujours d'écrire Python. Le plus dur est de reconnaître le problème. Si le sujet parle de "plus court", pense souvent BFS. S'il parle de "toutes les dépendances avant X", pense tri topologique. S'il parle de "sous-chaîne contiguë", pense fenêtre glissante ou double boucle. S'il parle de "minimum/maximum optimal sur des préfixes", pense programmation dynamique.
           </p>
+          <div class="algo-deep">
+            <h4>Comment lire un sujet quand on débute</h4>
+            <p data-reading>
+              Lis d'abord la sortie demandée, pas le code que tu imagines. Si la sortie est un booléen, on cherche souvent une preuve ou un contre-exemple. Si la sortie est une liste ordonnée, l'ordre fait partie du problème. Si la sortie est un nombre minimum ou maximum, il faut se demander si une solution locale suffit ou s'il faut garder une mémoire des meilleurs choix.
+            </p>
+            <p data-reading>
+              Ensuite, cherche le verbe principal. "Compter" pointe vers un dictionnaire ou une boucle. "Trouver le plus court" pointe vers BFS. "Installer dans le bon ordre" pointe vers dépendances et tri topologique. "Toutes les possibilités" peut pointer vers backtracking. "Sous-chaîne contiguë" veut dire que tu n'as pas le droit de sauter des caractères.
+            </p>
+          </div>
           <div class="algo-grid">
             <div class="algo-card">
               <h4>Question 1 : quelle forme ?</h4>
@@ -104,6 +113,12 @@
           <div class="algo-note">
             <strong>Réflexe à annoncer :</strong>
             <span data-reading>Je choisis la structure qui rend l'opération principale simple. Si je cherche souvent une valeur, je prends un `set` ou un `dict`. Si je cherche un plus court chemin, je prends une file BFS. Si je dois revenir en arrière, je prends DFS/backtracking.</span>
+          </div>
+          <div class="algo-warning">
+            <h4>Erreur de débutant·e</h4>
+            <p data-reading>
+              Partir directement sur du code parce qu'un exemple semble simple. Les exemples visibles sont souvent gentils ; les tests cachés vérifient les cas limites. Avant de coder, écris au moins mentalement : entrée vide, un seul élément, doublons, élément absent, cycle, grande taille.
+            </p>
           </div>
         </section>
 
@@ -133,6 +148,22 @@
               <p data-reading>Pour trouver les palindromes internes, pars d'un centre et agrandis tant que les deux côtés sont égaux. Il faut tester les centres impairs (`aba`) et pairs (`abba`).</p>
             </div>
           </div>
+          <div class="algo-steps">
+            <h4>Déroulé pas à pas</h4>
+            <ol>
+              <li data-reading>Normalise si le sujet le demande : casse, espaces, ponctuation. Ne mélange pas cette étape avec l'algo.</li>
+              <li data-reading>Pour un test simple, compare le premier et le dernier caractère, puis rapproche les deux pointeurs.</li>
+              <li data-reading>Pour chercher des palindromes internes, choisis un centre et agrandis vers la gauche et la droite.</li>
+              <li data-reading>Teste deux centres à chaque position : un centre sur une lettre, et un centre entre deux lettres.</li>
+              <li data-reading>Quand l'égalité casse ou qu'une borne sort de la chaîne, le palindrome maximal autour de ce centre est terminé.</li>
+            </ol>
+          </div>
+          <div class="algo-deep">
+            <h4>Pourquoi les centres suffisent</h4>
+            <p data-reading>
+              Tout palindrome a forcément un milieu. Pour `racecar`, le milieu est `e`. Pour `abba`, le milieu est l'espace entre les deux `b`. Si tu testes tous les milieux possibles et que tu agrandis tant que les côtés correspondent, tu ne peux pas rater un palindrome.
+            </p>
+          </div>
           <pre><code>def expand(s, left, right):
     while left >= 0 and right < len(s) and s[left] == s[right]:
         left -= 1
@@ -159,6 +190,25 @@
           <p data-reading>
             KMP sert à rechercher un motif dans un texte sans revenir en arrière dans le texte. Il construit une table LPS : pour chaque position du motif, elle indique la longueur du plus long préfixe qui est aussi suffixe. Quand une comparaison échoue, on sait où reprendre dans le motif au lieu de repartir de zéro.
           </p>
+          <div class="algo-deep">
+            <h4>Comprendre LPS sans panique</h4>
+            <p data-reading>
+              Imagine que tu cherches `abab` dans un texte. Si tu as déjà reconnu `aba` puis que le caractère suivant échoue, tu n'as pas besoin d'oublier tout ce que tu sais. Le début `a` peut aussi être la fin de ce qui vient de matcher. La table LPS encode exactement ce recyclage.
+            </p>
+            <p data-reading>
+              LPS veut dire : "si j'échoue ici, quelle longueur de début du pattern est encore utilisable ?" Ce n'est pas une table sur le texte, c'est une table sur le motif. C'est pour cela qu'on la construit une seule fois avant la recherche.
+            </p>
+          </div>
+          <div class="algo-steps">
+            <h4>Plan de KMP</h4>
+            <ol>
+              <li data-reading>Construis la table LPS du pattern.</li>
+              <li data-reading>Avance dans le texte avec `i` et dans le pattern avec `j`.</li>
+              <li data-reading>Si les caractères matchent, avance les deux.</li>
+              <li data-reading>Si `j` atteint la fin du pattern, tu as trouvé une occurrence.</li>
+              <li data-reading>Si ça casse, remplace `j` par `lps[j - 1]` au lieu de reculer `i`.</li>
+            </ol>
+          </div>
           <pre><code># Double boucle pour énumérer les sous-chaînes
 for start in range(len(s)):
     for end in range(start + 1, len(s) + 1):
@@ -185,6 +235,15 @@ for start in range(len(s)):
           <p data-reading>
             La fenêtre glissante sert quand le sujet parle d'un morceau contigu qui avance : sous-liste, sous-chaîne, fenêtre de taille `k`, plus longue zone sans doublon, somme maximale contiguë. L'idée est de ne pas recalculer toute la fenêtre à chaque déplacement.
           </p>
+          <div class="algo-deep">
+            <h4>Image mentale</h4>
+            <p data-reading>
+              Une fenêtre, c'est deux index : `left` et `right`. Tout ce qui est entre les deux est la zone actuellement étudiée. Quand tu avances `right`, tu ajoutes un élément à droite. Quand la fenêtre devient invalide, tu avances `left` pour retirer des éléments à gauche.
+            </p>
+            <p data-reading>
+              La puissance de cette méthode vient du fait que chaque élément entre dans la fenêtre une fois et en sort une fois. Même avec une boucle `while` à l'intérieur, la complexité reste souvent O(n), parce que `left` ne revient jamais en arrière.
+            </p>
+          </div>
           <div class="algo-grid">
             <div class="algo-card">
               <h4>Fenêtre fixe</h4>
@@ -210,6 +269,12 @@ for right, value in enumerate(values):
           <p data-reading>
             Kadane est une fenêtre glissante spécialisée pour la somme maximale d'une sous-liste contiguë. À chaque nombre, tu décides si tu continues la somme courante ou si tu repars de ce nombre. C'est le bon outil quand des nombres négatifs peuvent casser une somme.
           </p>
+          <div class="algo-warning">
+            <h4>À ne pas confondre</h4>
+            <p data-reading>
+              Une sous-liste contiguë n'est pas une sélection libre d'éléments. Pour `[4, -1, 2]`, tu peux prendre les trois ensemble, mais tu ne peux pas prendre `4` et `2` en sautant `-1` si le sujet dit "contigu".
+            </p>
+          </div>
           <div class="algo-facts">
             <span><strong>Fenêtre simple</strong> O(n)</span>
             <span><strong>Deque max</strong> O(n)</span>
@@ -234,6 +299,22 @@ left = values[k:] + values[:k]</code></pre>
           <p data-reading>
             Le `% len(values)` est essentiel : tourner de 12 positions une liste de 5 éléments revient à tourner de 2 positions. Sans modulo, tu peux faire trop de travail ou te tromper sur les slices.
           </p>
+          <div class="algo-steps">
+            <h4>Exemple mental</h4>
+            <ol>
+              <li data-reading>Liste : `[1, 2, 3, 4, 5]`, rotation droite de 2.</li>
+              <li data-reading>Les 2 derniers éléments sont `[4, 5]`.</li>
+              <li data-reading>Le reste est `[1, 2, 3]`.</li>
+              <li data-reading>On met la fin devant : `[4, 5] + [1, 2, 3]`.</li>
+              <li data-reading>Résultat : `[4, 5, 1, 2, 3]`.</li>
+            </ol>
+          </div>
+          <div class="algo-warning">
+            <h4>Cas limite</h4>
+            <p data-reading>
+              Si la liste est vide, `k % len(values)` provoque une division par zéro. Il faut gérer `if not values: return values` avant le modulo.
+            </p>
+          </div>
           <div class="algo-facts">
             <span><strong>Slicing</strong> O(n)</span>
             <span><strong>In-place par reverse</strong> O(n), O(1)</span>
@@ -258,6 +339,15 @@ for char in text.lower():
           <p data-reading>
             Pour les anagrammes, deux chaînes sont équivalentes si elles ont les mêmes fréquences de caractères. Trier les chaînes fonctionne aussi, mais coûte O(n log n), alors qu'un comptage est O(n).
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi le dictionnaire est le bon outil</h4>
+            <p data-reading>
+              Une liste répond bien à "quels éléments sont dans l'ordre ?". Un dictionnaire répond bien à "combien de fois ai-je vu cette clé ?". Dans un exercice de fréquence, l'ordre du texte n'est souvent pas la donnée importante ; ce qui compte, c'est le nombre d'occurrences par caractère ou par mot.
+            </p>
+            <p data-reading>
+              Pour un mot comme `banana`, le dictionnaire devient `{b: 1, a: 3, n: 2}`. Deux mots sont anagrammes si leurs dictionnaires de fréquence sont identiques après normalisation.
+            </p>
+          </div>
           <div class="algo-facts">
             <span><strong>Dict</strong> insertion moyenne O(1)</span>
             <span><strong>Counter</strong> lisible et sûr</span>
@@ -284,6 +374,15 @@ for char in text.lower():
             <strong>Tri stable :</strong>
             <span data-reading>Si deux éléments ont la même clé, Python garde leur ordre relatif. On peut donc faire plusieurs tris successifs du critère secondaire vers le critère principal.</span>
           </div>
+          <div class="algo-deep">
+            <h4>Comment penser une clé de tri</h4>
+            <p data-reading>
+              Ne pense pas "je trie avec plein de conditions". Pense plutôt "pour chaque élément, je fabrique une carte d'identité comparable". Pour un mot, cette carte peut être `(longueur, version minuscule, mot original)`. Python trie ensuite ces cartes de gauche à droite.
+            </p>
+            <p data-reading>
+              Si deux mots ont la même longueur, Python regarde le deuxième critère. Si le deuxième critère est aussi égal, il regarde le troisième. C'est beaucoup plus simple que d'écrire une fonction avec des `if` imbriqués.
+            </p>
+          </div>
         </section>
 
         <section id="topological-sort" class="algo-section">
@@ -297,6 +396,15 @@ for char in text.lower():
           <p data-reading>
             Le tri topologique sert quand certaines choses doivent arriver avant d'autres : cours à valider, paquets à installer, tâches de build, dépendances. Le graphe doit être orienté et sans cycle. S'il y a un cycle, aucun ordre valide n'existe.
           </p>
+          <div class="algo-deep">
+            <h4>Le modèle mental</h4>
+            <p data-reading>
+              Imagine des tâches avec des cadenas. Une tâche avec zéro dépendance n'a aucun cadenas : tu peux la faire tout de suite. Quand tu fais cette tâche, elle peut enlever un cadenas sur d'autres tâches. Le tri topologique répète cette idée jusqu'à ce que tout soit fait.
+            </p>
+            <p data-reading>
+              Si à un moment il reste des tâches, mais aucune n'a zéro dépendance, elles se bloquent entre elles. C'est un cycle. Dans ce cas, le bon résultat est souvent une liste vide, parce qu'aucun ordre ne peut respecter toutes les contraintes.
+            </p>
+          </div>
           <div class="algo-columns">
             <div>
               <h4>Kahn</h4>
@@ -310,6 +418,17 @@ for char in text.lower():
           <pre><code># Kahn : si tout n'est pas sorti, il reste un cycle
 if len(order) != number_of_nodes:
     return []</code></pre>
+          <div class="algo-steps">
+            <h4>Plan de Kahn</h4>
+            <ol>
+              <li data-reading>Liste tous les nœuds, même ceux qui n'ont pas de dépendances.</li>
+              <li data-reading>Calcule `in_degree[node]`, le nombre de dépendances restantes.</li>
+              <li data-reading>Mets dans une file tous les nœuds avec `in_degree == 0`.</li>
+              <li data-reading>Sors un nœud, ajoute-le au résultat, puis décrémente les nœuds qui dépendaient de lui.</li>
+              <li data-reading>Si un voisin tombe à zéro, ajoute-le dans la file.</li>
+              <li data-reading>À la fin, compare la taille du résultat au nombre total de nœuds.</li>
+            </ol>
+          </div>
           <div class="algo-facts">
             <span><strong>Complexité</strong> O(V + E)</span>
             <span><strong>Structure</strong> queue + in-degree</span>
@@ -328,9 +447,28 @@ if len(order) != number_of_nodes:
           <p data-reading>
             La programmation dynamique sert quand le résultat optimal d'un problème dépend de résultats optimaux plus petits. Le signe le plus clair : tu peux définir une phrase du type `dp[i] = meilleure réponse pour les i premiers éléments`.
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi la DP existe</h4>
+            <p data-reading>
+              Certains problèmes te font recalculer les mêmes choses encore et encore. Par exemple, si tu essaies tous les découpages d'une chaîne en palindromes avec une récursion naïve, le même préfixe peut être analysé plusieurs fois. La DP dit : dès que j'ai calculé une réponse pour un morceau, je la garde.
+            </p>
+            <p data-reading>
+              Il y a deux formes courantes. La mémoïsation part d'une fonction récursive et ajoute un cache. La tabulation construit un tableau du plus petit problème vers le plus grand. Les deux reposent sur la même idée : ne pas refaire deux fois le même sous-problème.
+            </p>
+          </div>
           <p data-reading>
             Pour le découpage minimal en palindromes, `dp[i]` peut représenter le nombre minimal de morceaux palindromes pour `s[:i]`. On teste chaque dernier morceau possible `s[j:i]`. S'il est palindrome, alors on peut prolonger la solution de `s[:j]`.
           </p>
+          <div class="algo-steps">
+            <h4>Questions à se poser pour une DP</h4>
+            <ol>
+              <li data-reading>Quelle est la petite version du problème ? Préfixe, suffixe, case, quantité, intervalle ?</li>
+              <li data-reading>Que signifie exactement une case `dp` ? Écris une phrase complète.</li>
+              <li data-reading>Quelle est la valeur de départ ? Souvent `dp[0] = 0` ou une première case connue.</li>
+              <li data-reading>Comment passer d'un état plus petit à un état plus grand ?</li>
+              <li data-reading>Est-ce qu'on cherche un minimum, un maximum, un booléen, ou un nombre de possibilités ?</li>
+            </ol>
+          </div>
           <pre><code>dp = [float("inf")] * (len(s) + 1)
 dp[0] = 0
 for i in range(1, len(s) + 1):
@@ -363,6 +501,21 @@ for index, value in enumerate(nums):
           <p data-reading>
             Dans Two Sum, on ne cherche pas directement deux nombres. Pour chaque nombre, on cherche son complément. Cette inversion de perspective transforme une double boucle O(n²) en boucle simple O(n).
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi ça accélère autant</h4>
+            <p data-reading>
+              Dans la version naïve, pour chaque nombre, tu reparcours tous les autres nombres. Tu poses donc beaucoup de fois la même question : "est-ce que cette valeur existe ?" Un dictionnaire transforme cette question en recherche directe.
+            </p>
+            <p data-reading>
+              Pour `target = 9` et `value = 2`, tu ne cherches pas tous les couples. Tu calcules `need = 7`, puis tu demandes au dictionnaire si `7` a déjà été vu. Si oui, tu as le couple immédiatement. Sinon, tu mémorises `2` pour les prochains tours.
+            </p>
+          </div>
+          <div class="algo-warning">
+            <h4>Piège des doublons</h4>
+            <p data-reading>
+              Pour `target = 6` et une liste qui contient un seul `3`, tu n'as pas le droit d'utiliser le même index deux fois. C'est pour cela qu'on cherche d'abord le complément dans les valeurs déjà vues, puis seulement ensuite on ajoute la valeur courante.
+            </p>
+          </div>
           <div class="algo-facts">
             <span><strong>Set</strong> appartenance O(1) moyenne</span>
             <span><strong>Dict</strong> valeur associée O(1) moyenne</span>
@@ -381,6 +534,15 @@ for index, value in enumerate(nums):
           <p data-reading>
             Les intervalles apparaissent avec des réunions, périodes, plages horaires, segments ou réservations. Le premier réflexe est presque toujours de trier par début. Une fois triés, les conflits deviennent locaux : tu compares l'intervalle courant avec le dernier intervalle gardé.
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi trier change tout</h4>
+            <p data-reading>
+              Sans tri, un intervalle peut chevaucher un autre placé n'importe où dans la liste. Après tri par début, si l'intervalle courant ne chevauche pas le dernier intervalle fusionné, il ne chevauchera pas non plus les intervalles encore plus anciens. Le problème devient linéaire après le tri.
+            </p>
+            <p data-reading>
+              Pour fusionner, on garde une liste `merged`. Le dernier élément de `merged` représente la plage active la plus à droite. Si le début du nouvel intervalle est avant ou égal à la fin de cette plage, on étend la fin. Sinon, on crée une nouvelle plage.
+            </p>
+          </div>
           <pre><code>intervals.sort(key=lambda interval: interval[0])
 merged = [intervals[0]]
 for start, end in intervals[1:]:
@@ -392,6 +554,14 @@ for start, end in intervals[1:]:
           <p data-reading>
             Pour les salles de réunion, on veut savoir combien d'intervalles se chevauchent au maximum. Une solution classique trie les débuts et les fins avec deux pointeurs. Une autre utilise un min-heap des fins de réunions pour réutiliser la salle qui se libère le plus tôt.
           </p>
+          <div class="algo-steps">
+            <h4>Lecture d'un chevauchement</h4>
+            <ol>
+              <li data-reading>Si `start < previous_end`, les réunions se chevauchent.</li>
+              <li data-reading>Si `start == previous_end`, elles se touchent mais ne se chevauchent pas.</li>
+              <li data-reading>Si `start > previous_end`, il y a un trou entre les deux.</li>
+            </ol>
+          </div>
           <div class="algo-facts">
             <span><strong>Merge</strong> O(n log n)</span>
             <span><strong>Rooms</strong> heap ou two pointers</span>
@@ -410,6 +580,15 @@ for start, end in intervals[1:]:
           <p data-reading>
             Une grille est un graphe caché. Chaque case est un nœud, et ses voisines sont souvent haut, bas, gauche, droite. Dès que le sujet parle d'îlots, de chemin, de contamination, de mot à retrouver ou de zones connectées, pense parcours de graphe.
           </p>
+          <div class="algo-deep">
+            <h4>Transformer une grille en graphe</h4>
+            <p data-reading>
+              Une case `(row, col)` est un nœud. Ses voisins sont calculés avec des petits déplacements : `(+1, 0)`, `(-1, 0)`, `(0, +1)`, `(0, -1)`. Avant de lire une case voisine, tu dois vérifier qu'elle reste dans la grille. C'est l'ordre le plus important : bornes d'abord, accès ensuite.
+            </p>
+            <p data-reading>
+              Pour les îlots, DFS est naturel : dès que tu trouves une terre, tu comptes un nouvel îlot, puis tu marques toute la terre connectée comme visitée. Pour le plus court chemin, BFS est naturel : la première fois que tu atteins une case, tu y arrives par le chemin le plus court.
+            </p>
+          </div>
           <div class="algo-grid">
             <div class="algo-card">
               <h4>DFS</h4>
@@ -429,6 +608,12 @@ for dr, dc in directions:
     nr, nc = row + dr, col + dc
     if 0 <= nr < rows and 0 <= nc < cols:
         pass</code></pre>
+          <div class="algo-warning">
+            <h4>Mutation ou visited ?</h4>
+            <p data-reading>
+              Tu peux marquer une case visitée en modifiant la grille, par exemple en transformant `1` en `0`. C'est simple et économise un set. Mais si le sujet interdit de modifier l'entrée, utilise un `visited`.
+            </p>
+          </div>
           <div class="algo-facts">
             <span><strong>DFS/BFS grille</strong> O(R × C)</span>
             <span><strong>Structure BFS</strong> deque</span>
@@ -450,6 +635,22 @@ for dr, dc in directions:
           <p data-reading>
             Pour compresser, garde le caractère courant et un compteur. Quand le caractère change, tu écris le couple précédent. Pour décompresser, lis un caractère puis tous les chiffres qui le suivent, car le nombre peut avoir plusieurs chiffres.
           </p>
+          <div class="algo-steps">
+            <h4>Compression pas à pas</h4>
+            <ol>
+              <li data-reading>Si le texte est vide, retourne une chaîne vide.</li>
+              <li data-reading>Prends le premier caractère comme caractère courant et initialise le compteur à 1.</li>
+              <li data-reading>Pour chaque caractère suivant, s'il est identique, incrémente le compteur.</li>
+              <li data-reading>S'il change, écris l'ancien caractère et son compteur, puis recommence avec le nouveau caractère.</li>
+              <li data-reading>Après la boucle, n'oublie pas d'écrire le dernier groupe.</li>
+            </ol>
+          </div>
+          <div class="algo-warning">
+            <h4>Décompression</h4>
+            <p data-reading>
+              Ne lis pas un seul chiffre après la lettre. Dans `a12`, le nombre est `12`, pas `1`. Il faut avancer tant que les caractères suivants sont des chiffres.
+            </p>
+          </div>
           <div class="algo-facts">
             <span><strong>Compression</strong> O(n)</span>
             <span><strong>Décompression</strong> O(n + sortie)</span>
@@ -471,6 +672,15 @@ for dr, dc in directions:
           <p data-reading>
             Le DFS avec coloriage est très lisible : blanc pour non visité, gris pour en cours, noir pour terminé. Si tu tombes sur un gris, tu as trouvé un cycle. Kahn détecte aussi les cycles : si après avoir retiré tous les nœuds sans dépendances il reste des nœuds, ils sont bloqués dans un cycle.
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi le gris signifie cycle</h4>
+            <p data-reading>
+              Gris veut dire : "je suis actuellement dans la pile d'appels DFS". Si pendant l'exploration tu retombes sur un nœud gris, cela signifie qu'un chemin revient vers un ancêtre qui n'a pas encore fini. C'est exactement la définition d'un cycle orienté.
+            </p>
+            <p data-reading>
+              Noir veut dire : "tout ce qui part de ce nœud a déjà été vérifié". Revoir un nœud noir n'est pas dangereux, parce qu'on sait déjà qu'il ne mène pas à un cycle non traité.
+            </p>
+          </div>
           <pre><code>WHITE, GRAY, BLACK = 0, 1, 2
 if color[node] == GRAY:
     return True</code></pre>
@@ -492,6 +702,16 @@ if color[node] == GRAY:
           <p data-reading>
             Les spirales sont des exercices de simulation. Tu gardes quatre limites : haut, bas, gauche, droite. Tu parcours la ligne du haut, puis la colonne de droite, puis la ligne du bas, puis la colonne de gauche, et tu resserres les limites.
           </p>
+          <div class="algo-steps">
+            <h4>Tour de spirale</h4>
+            <ol>
+              <li data-reading>Va de gauche à droite sur la ligne `top`, puis augmente `top`.</li>
+              <li data-reading>Va de haut en bas sur la colonne `right`, puis diminue `right`.</li>
+              <li data-reading>Si `top <= bottom`, va de droite à gauche sur la ligne `bottom`, puis diminue `bottom`.</li>
+              <li data-reading>Si `left <= right`, va de bas en haut sur la colonne `left`, puis augmente `left`.</li>
+              <li data-reading>Répète tant que les limites ne se croisent pas.</li>
+            </ol>
+          </div>
           <p data-reading>
             L'autre méthode consiste à garder une direction courante et à tourner quand la prochaine case sort de la grille ou est déjà remplie. Les deux approches marchent ; les limites explicites sont souvent plus faciles à expliquer en correction.
           </p>
@@ -513,9 +733,27 @@ if color[node] == GRAY:
           <p data-reading>
             Word Ladder est un BFS sur un graphe qu'on ne construit pas toujours explicitement. Chaque mot est un nœud. Deux mots sont voisins s'ils diffèrent d'une seule lettre. Comme on cherche la transformation la plus courte, BFS est le bon choix.
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi c'est un graphe implicite</h4>
+            <p data-reading>
+              Le sujet ne te donne pas une liste d'arêtes comme `hit -> hot`. Pourtant, ces arêtes existent si deux mots ne diffèrent que d'une lettre. On dit que le graphe est implicite parce que tu peux générer les voisins à la demande au lieu de tous les stocker dès le départ.
+            </p>
+            <p data-reading>
+              BFS est obligatoire si on veut le plus court nombre de transformations. DFS peut trouver un chemin, mais pas forcément le plus court. Avec BFS, tous les mots à distance 2 sont traités avant les mots à distance 3.
+            </p>
+          </div>
           <p data-reading>
             À chaque mot, tu génères toutes les variations possibles en changeant une position par les 26 lettres. Si le mot généré existe dans le dictionnaire et n'a pas été visité, tu l'ajoutes à la file avec une distance augmentée de 1.
           </p>
+          <div class="algo-steps">
+            <h4>Générer les voisins</h4>
+            <ol>
+              <li data-reading>Pour chaque position du mot, remplace la lettre par `a`, puis `b`, puis `c`, etc.</li>
+              <li data-reading>Ignore le mot généré s'il n'est pas dans `word_list`.</li>
+              <li data-reading>Ignore-le aussi s'il a déjà été visité.</li>
+              <li data-reading>Sinon, ajoute-le à la file avec une distance augmentée.</li>
+            </ol>
+          </div>
           <pre><code>queue = deque([(begin, 1)])
 words = set(word_list)
 while queue:
@@ -537,9 +775,28 @@ while queue:
           <p data-reading>
             Meeting Scheduler mélange tri d'intervalles et heap. On trie les réunions par heure de début. Le heap contient les salles occupées, triées par leur heure de libération. La salle qui se libère le plus tôt est toujours au sommet.
           </p>
+          <div class="algo-deep">
+            <h4>Pourquoi un heap</h4>
+            <p data-reading>
+              À chaque nouvelle réunion, tu dois répondre à une question : "quelle salle se libère le plus tôt ?" Si tu parcours toutes les salles à chaque fois, tu perds du temps. Un min-heap garde automatiquement la plus petite heure de fin au sommet.
+            </p>
+            <p data-reading>
+              Le heap ne trie pas toute la liste comme un tableau trié visible. Il garantit seulement que le plus petit élément est accessible rapidement. C'est exactement ce qu'il nous faut ici : on ne veut pas toutes les salles triées, seulement la prochaine salle disponible.
+            </p>
+          </div>
           <p data-reading>
             Pour chaque réunion, si la salle au sommet se libère avant ou exactement au début de la réunion, on peut la réutiliser. Sinon, il faut créer une nouvelle salle. Le nombre maximal de salles créées donne le minimum nécessaire.
           </p>
+          <div class="algo-steps">
+            <h4>Déroulé</h4>
+            <ol>
+              <li data-reading>Trie les réunions par heure de début.</li>
+              <li data-reading>Regarde la salle qui se libère le plus tôt dans le heap.</li>
+              <li data-reading>Si `end_time <= start`, réutilise cette salle.</li>
+              <li data-reading>Sinon, crée une nouvelle salle.</li>
+              <li data-reading>Ajoute la réunion courante dans le heap avec sa nouvelle heure de fin.</li>
+            </ol>
+          </div>
           <pre><code>heap = []  # (end_time, room_id)
 for start, end, name in meetings:
     if heap and heap[0][0] <= start:

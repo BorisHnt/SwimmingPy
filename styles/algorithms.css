@@ -3,10 +3,11 @@
 }
 
 .algo-topbar p,
-.algo-content,
 .algo-toolbar,
 .algo-page {
   max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .algo-sidebar .sidebar-header {
@@ -175,6 +176,43 @@
 
 .algo-note strong {
   color: var(--accent-dark);
+}
+
+.algo-deep,
+.algo-steps,
+.algo-warning {
+  margin: 1rem 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  padding: 1rem;
+}
+
+.algo-deep h4,
+.algo-steps h4,
+.algo-warning h4 {
+  margin: 0 0 0.45rem;
+  color: var(--accent-dark);
+  font-size: 0.92rem;
+  text-transform: uppercase;
+}
+
+.algo-deep p {
+  margin: 0.35rem 0;
+}
+
+.algo-steps ol {
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.algo-steps li {
+  margin: 0.35rem 0;
+}
+
+.algo-warning {
+  border-left: 4px solid var(--warning-line);
+  background: var(--warning-bg);
 }
 
 .algo-facts {
