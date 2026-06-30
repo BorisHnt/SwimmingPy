@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Piscine Python - Algorithmes</title>
+    <meta
+      name="description"
+      content="Page spéciale de révision des algorithmes utiles pour les exercices d'exam Python."
+    >
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/algorithms.css">
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#content">Aller au contenu</a>
+
+    <header class="topbar algo-topbar">
+      <p class="eyebrow">Page spéciale</p>
+      <h1>Algorithmes d'exam Python</h1>
+      <p data-reading>
+        Les patterns à reconnaître, les structures de données à choisir, les complexités à annoncer, et les pièges qui font tomber les tests cachés.
+      </p>
+    </header>
+
+    <aside class="sidebar algo-sidebar" aria-label="Navigation algorithmes">
+      <div class="sidebar-header">
+        <h2>Algorithmes</h2>
+      </div>
+      <nav class="algo-nav" aria-label="Sommaire des algorithmes">
+        <a href="#methode">00 Méthode</a>
+        <a href="#palindromes">01 Palindromes</a>
+        <a href="#substrings">02 Sous-chaînes & KMP</a>
+        <a href="#sliding-window">03 Sliding window</a>
+        <a href="#rotations">04 Rotations</a>
+        <a href="#counting">05 Comptage</a>
+        <a href="#sort">06 Tri personnalisé</a>
+        <a href="#topological-sort">07 Tri topologique</a>
+        <a href="#dynamic-programming">08 Programmation dynamique</a>
+        <a href="#hashing">09 Hash set & hash map</a>
+        <a href="#intervals">10 Intervalles</a>
+        <a href="#grids">11 Grilles DFS/BFS</a>
+        <a href="#rle">12 Compression RLE</a>
+        <a href="#cycles">13 Cycles de graphe</a>
+        <a href="#spiral">14 Spirales</a>
+        <a href="#word-ladder">15 Word Ladder</a>
+        <a href="#meeting-scheduler">16 Meeting scheduler</a>
+      </nav>
+      <a class="sidebar-shortcut" href="index.html" aria-label="Retourner au notebook SwimmingPy">
+        <span class="shortcut-label">Retour</span>
+        <strong class="shortcut-name">SwimmingPy</strong>
+        <span class="shortcut-hint">Notebook principal</span>
+      </a>
+    </aside>
+
+    <main id="content" class="content algo-content" tabindex="-1">
+      <section class="toolbar algo-toolbar" aria-label="Outils de révision">
+        <a class="plain-button algo-home-link" href="index.html">Retour au notebook</a>
+        <button id="reading-toggle" class="toggle-button" type="button" aria-pressed="false">
+          Mode lecture assistée
+        </button>
+      </section>
+
+      <article class="project-page algo-page">
+        <p class="project-kicker">Récapitulatif transversal</p>
+        <h2 class="project-title">Tous les algos utiles, expliqués clairement</h2>
+        <p class="summary" data-reading>
+          Cette page ne sert pas à mémoriser des corrections. Elle sert à reconnaître une famille de problème en quelques secondes, puis à choisir le bon outil : deux pointeurs, dictionnaire, pile, file, heap, DFS, BFS, DP, tri ou fenêtre glissante.
+        </p>
+
+        <section class="algo-map" aria-label="Carte des familles algorithmiques">
+          <a href="#palindromes"><strong>Chaînes</strong><span>palindromes, KMP, RLE</span></a>
+          <a href="#sliding-window"><strong>Listes</strong><span>fenêtres, rotations, Kadane</span></a>
+          <a href="#hashing"><strong>Dictionnaires</strong><span>comptage, two sum, anagrammes</span></a>
+          <a href="#topological-sort"><strong>Graphes</strong><span>topologie, cycles, BFS</span></a>
+          <a href="#grids"><strong>Grilles</strong><span>DFS, backtracking, multi-source</span></a>
+          <a href="#intervals"><strong>Intervalles</strong><span>merge, rooms, heap</span></a>
+        </section>
+
+        <section id="methode" class="algo-section">
+          <div class="algo-heading">
+            <span>00</span>
+            <div>
+              <p class="eyebrow">Avant de coder</p>
+              <h3>Méthode d'identification</h3>
+            </div>
+          </div>
+          <p data-reading>
+            En exam, le plus dur n'est pas toujours d'écrire Python. Le plus dur est de reconnaître le problème. Si le sujet parle de "plus court", pense souvent BFS. S'il parle de "toutes les dépendances avant X", pense tri topologique. S'il parle de "sous-chaîne contiguë", pense fenêtre glissante ou double boucle. S'il parle de "minimum/maximum optimal sur des préfixes", pense programmation dynamique.
+          </p>
+          <div class="algo-grid">
+            <div class="algo-card">
+              <h4>Question 1 : quelle forme ?</h4>
+              <p data-reading>Chaîne, liste, matrice, graphe, intervalles ou dictionnaire. La forme de la donnée donne déjà la moitié de l'algo.</p>
+            </div>
+            <div class="algo-card">
+              <h4>Question 2 : quelle opération revient ?</h4>
+              <p data-reading>Tester l'appartenance, parcourir des voisins, minimiser un nombre, garder un ordre, compter, trier ou chercher un chemin.</p>
+            </div>
+            <div class="algo-card">
+              <h4>Question 3 : quel piège ?</h4>
+              <p data-reading>Vide, taille 1, doublons, cycle, bornes de grille, ordre stable, mutation de l'entrée, ou complexité trop lente.</p>
+            </div>
+          </div>
+          <div class="algo-note">
+            <strong>Réflexe à annoncer :</strong>
+            <span data-reading>Je choisis la structure qui rend l'opération principale simple. Si je cherche souvent une valeur, je prends un `set` ou un `dict`. Si je cherche un plus court chemin, je prends une file BFS. Si je dois revenir en arrière, je prends DFS/backtracking.</span>
+          </div>
+        </section>
+
+        <section id="palindromes" class="algo-section">
+          <div class="algo-heading">
+            <span>01</span>
+            <div>
+              <p class="eyebrow">Chaînes</p>
+              <h3>Palindromes</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Un palindrome se lit pareil dans les deux sens. Les exercices autour des palindromes vérifient trois niveaux : tester une chaîne complète, trouver des sous-chaînes palindromiques, ou optimiser un découpage en morceaux palindromes.
+          </p>
+          <div class="algo-columns">
+            <div>
+              <h4>À reconnaître</h4>
+              <ul>
+                <li data-reading>Le sujet parle de miroir, de chaîne inversée, de sous-chaîne symétrique.</li>
+                <li data-reading>On demande le plus long palindrome, tous les palindromes, ou un découpage minimal.</li>
+                <li data-reading>Les espaces, la casse ou la ponctuation peuvent devoir être ignorés.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Idée claire</h4>
+              <p data-reading>Pour tester une chaîne entière, `s == s[::-1]` suffit souvent. Pour éviter de copier la chaîne, utilise deux pointeurs : un à gauche, un à droite, puis tu avances vers le centre.</p>
+              <p data-reading>Pour trouver les palindromes internes, pars d'un centre et agrandis tant que les deux côtés sont égaux. Il faut tester les centres impairs (`aba`) et pairs (`abba`).</p>
+            </div>
+          </div>
+          <pre><code>def expand(s, left, right):
+    while left >= 0 and right < len(s) and s[left] == s[right]:
+        left -= 1
+        right += 1
+    return s[left + 1:right]</code></pre>
+          <div class="algo-facts">
+            <span><strong>Simple</strong> O(n)</span>
+            <span><strong>Tous les centres</strong> O(n²)</span>
+            <span><strong>Piège</strong> oublier les palindromes pairs</span>
+          </div>
+        </section>
+
+        <section id="substrings" class="algo-section">
+          <div class="algo-heading">
+            <span>02</span>
+            <div>
+              <p class="eyebrow">Recherche texte</p>
+              <h3>Sous-chaînes et KMP</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Une sous-chaîne est un morceau contigu `s[i:j]`. Si tu testes toutes les sous-chaînes avec deux boucles, tu as déjà O(n²) morceaux. Si chaque test relit le morceau, tu peux monter à O(n³). Il faut donc savoir quand une double boucle suffit et quand il faut un algo plus fin.
+          </p>
+          <p data-reading>
+            KMP sert à rechercher un motif dans un texte sans revenir en arrière dans le texte. Il construit une table LPS : pour chaque position du motif, elle indique la longueur du plus long préfixe qui est aussi suffixe. Quand une comparaison échoue, on sait où reprendre dans le motif au lieu de repartir de zéro.
+          </p>
+          <pre><code># Double boucle pour énumérer les sous-chaînes
+for start in range(len(s)):
+    for end in range(start + 1, len(s) + 1):
+        sub = s[start:end]</code></pre>
+          <div class="algo-note">
+            <strong>Image mentale :</strong>
+            <span data-reading>KMP garde la mémoire de ce qui a déjà matché dans le pattern. Si le début du pattern ressemble à sa fin, on réutilise cette information.</span>
+          </div>
+          <div class="algo-facts">
+            <span><strong>Naïf</strong> O(n × m)</span>
+            <span><strong>KMP</strong> O(n + m)</span>
+            <span><strong>Piège</strong> occurrences qui se chevauchent</span>
+          </div>
+        </section>
+
+        <section id="sliding-window" class="algo-section">
+          <div class="algo-heading">
+            <span>03</span>
+            <div>
+              <p class="eyebrow">Listes et chaînes</p>
+              <h3>Fenêtre glissante, deque et Kadane</h3>
+            </div>
+          </div>
+          <p data-reading>
+            La fenêtre glissante sert quand le sujet parle d'un morceau contigu qui avance : sous-liste, sous-chaîne, fenêtre de taille `k`, plus longue zone sans doublon, somme maximale contiguë. L'idée est de ne pas recalculer toute la fenêtre à chaque déplacement.
+          </p>
+          <div class="algo-grid">
+            <div class="algo-card">
+              <h4>Fenêtre fixe</h4>
+              <p data-reading>La taille est connue, par exemple `k`. La fenêtre commence à `i` et finit à `i + k`. Il y a `len(arr) - k + 1` fenêtres.</p>
+            </div>
+            <div class="algo-card">
+              <h4>Fenêtre variable</h4>
+              <p data-reading>La taille bouge selon une condition. On avance `right`, puis on avance `left` tant que la fenêtre devient invalide.</p>
+            </div>
+            <div class="algo-card">
+              <h4>Deque monotone</h4>
+              <p data-reading>Pour le maximum de chaque fenêtre, la deque garde des indices candidats au maximum. Les valeurs inutiles sont retirées.</p>
+            </div>
+          </div>
+          <pre><code># Fenêtre variable : plus longue zone sans doublon
+left = 0
+seen = set()
+for right, value in enumerate(values):
+    while value in seen:
+        seen.remove(values[left])
+        left += 1
+    seen.add(value)</code></pre>
+          <p data-reading>
+            Kadane est une fenêtre glissante spécialisée pour la somme maximale d'une sous-liste contiguë. À chaque nombre, tu décides si tu continues la somme courante ou si tu repars de ce nombre. C'est le bon outil quand des nombres négatifs peuvent casser une somme.
+          </p>
+          <div class="algo-facts">
+            <span><strong>Fenêtre simple</strong> O(n)</span>
+            <span><strong>Deque max</strong> O(n)</span>
+            <span><strong>Kadane</strong> O(n)</span>
+          </div>
+        </section>
+
+        <section id="rotations" class="algo-section">
+          <div class="algo-heading">
+            <span>04</span>
+            <div>
+              <p class="eyebrow">Listes</p>
+              <h3>Rotations</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Une rotation coupe une liste en deux morceaux puis inverse leur ordre. Pour une rotation à droite de `k`, les `k` derniers éléments passent devant. Pour une rotation à gauche de `k`, les `k` premiers passent derrière.
+          </p>
+          <pre><code>k %= len(values)
+right = values[-k:] + values[:-k]
+left = values[k:] + values[:k]</code></pre>
+          <p data-reading>
+            Le `% len(values)` est essentiel : tourner de 12 positions une liste de 5 éléments revient à tourner de 2 positions. Sans modulo, tu peux faire trop de travail ou te tromper sur les slices.
+          </p>
+          <div class="algo-facts">
+            <span><strong>Slicing</strong> O(n)</span>
+            <span><strong>In-place par reverse</strong> O(n), O(1)</span>
+            <span><strong>Piège</strong> gauche vs droite</span>
+          </div>
+        </section>
+
+        <section id="counting" class="algo-section">
+          <div class="algo-heading">
+            <span>05</span>
+            <div>
+              <p class="eyebrow">Dictionnaires</p>
+              <h3>Comptage, fréquences et anagrammes</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Dès qu'un sujet demande "combien de fois", "même composition", "fréquence", "doublon", ou "anagramme", pense dictionnaire ou `Counter`. Le dictionnaire associe une clé à un nombre. La clé peut être un caractère, un mot, un nombre ou une signature calculée.
+          </p>
+          <pre><code>freq = {}
+for char in text.lower():
+    freq[char] = freq.get(char, 0) + 1</code></pre>
+          <p data-reading>
+            Pour les anagrammes, deux chaînes sont équivalentes si elles ont les mêmes fréquences de caractères. Trier les chaînes fonctionne aussi, mais coûte O(n log n), alors qu'un comptage est O(n).
+          </p>
+          <div class="algo-facts">
+            <span><strong>Dict</strong> insertion moyenne O(1)</span>
+            <span><strong>Counter</strong> lisible et sûr</span>
+            <span><strong>Piège</strong> normaliser casse et espaces</span>
+          </div>
+        </section>
+
+        <section id="sort" class="algo-section">
+          <div class="algo-heading">
+            <span>06</span>
+            <div>
+              <p class="eyebrow">Ordre</p>
+              <h3>Tri personnalisé</h3>
+            </div>
+          </div>
+          <p data-reading>
+            `sorted` crée une nouvelle liste triée. `list.sort()` modifie la liste en place et renvoie `None`. Pour les exercices, `sorted` est souvent plus simple parce que la fonction peut directement retourner le résultat.
+          </p>
+          <p data-reading>
+            La clé de tri transforme chaque élément en valeur comparable. Pour trier par plusieurs critères, retourne un tuple : Python compare d'abord le premier élément du tuple, puis le second en cas d'égalité, puis le troisième.
+          </p>
+          <pre><code>words = sorted(words, key=lambda word: (len(word), word.lower(), word))</code></pre>
+          <div class="algo-note">
+            <strong>Tri stable :</strong>
+            <span data-reading>Si deux éléments ont la même clé, Python garde leur ordre relatif. On peut donc faire plusieurs tris successifs du critère secondaire vers le critère principal.</span>
+          </div>
+        </section>
+
+        <section id="topological-sort" class="algo-section">
+          <div class="algo-heading">
+            <span>07</span>
+            <div>
+              <p class="eyebrow">Graphes orientés</p>
+              <h3>Tri topologique</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Le tri topologique sert quand certaines choses doivent arriver avant d'autres : cours à valider, paquets à installer, tâches de build, dépendances. Le graphe doit être orienté et sans cycle. S'il y a un cycle, aucun ordre valide n'existe.
+          </p>
+          <div class="algo-columns">
+            <div>
+              <h4>Kahn</h4>
+              <p data-reading>On calcule le nombre de dépendances restantes de chaque nœud. Les nœuds à zéro dépendance entrent dans une file. Quand on en sort un, on réduit le degré des nœuds qui dépendaient de lui.</p>
+            </div>
+            <div>
+              <h4>DFS</h4>
+              <p data-reading>On visite les dépendances en profondeur. Un coloriage à trois états aide : blanc non vu, gris en cours, noir terminé. Revoir un gris signifie cycle.</p>
+            </div>
+          </div>
+          <pre><code># Kahn : si tout n'est pas sorti, il reste un cycle
+if len(order) != number_of_nodes:
+    return []</code></pre>
+          <div class="algo-facts">
+            <span><strong>Complexité</strong> O(V + E)</span>
+            <span><strong>Structure</strong> queue + in-degree</span>
+            <span><strong>Piège</strong> nœuds déconnectés</span>
+          </div>
+        </section>
+
+        <section id="dynamic-programming" class="algo-section">
+          <div class="algo-heading">
+            <span>08</span>
+            <div>
+              <p class="eyebrow">Optimisation</p>
+              <h3>Programmation dynamique</h3>
+            </div>
+          </div>
+          <p data-reading>
+            La programmation dynamique sert quand le résultat optimal d'un problème dépend de résultats optimaux plus petits. Le signe le plus clair : tu peux définir une phrase du type `dp[i] = meilleure réponse pour les i premiers éléments`.
+          </p>
+          <p data-reading>
+            Pour le découpage minimal en palindromes, `dp[i]` peut représenter le nombre minimal de morceaux palindromes pour `s[:i]`. On teste chaque dernier morceau possible `s[j:i]`. S'il est palindrome, alors on peut prolonger la solution de `s[:j]`.
+          </p>
+          <pre><code>dp = [float("inf")] * (len(s) + 1)
+dp[0] = 0
+for i in range(1, len(s) + 1):
+    for j in range(i):
+        if is_palindrome(s[j:i]):
+            dp[i] = min(dp[i], dp[j] + 1)</code></pre>
+          <div class="algo-note">
+            <strong>Point critique :</strong>
+            <span data-reading>Dis exactement ce que contient `dp`. Si tu comptes les morceaux, le nombre de coupes vaut morceaux moins un.</span>
+          </div>
+        </section>
+
+        <section id="hashing" class="algo-section">
+          <div class="algo-heading">
+            <span>09</span>
+            <div>
+              <p class="eyebrow">Recherche rapide</p>
+              <h3>Hash set et hash map</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Un `set` répond vite à la question "ai-je déjà vu cette valeur ?". Un `dict` répond vite à la question "quelle information est associée à cette valeur ?". C'est le cœur de `contains duplicate`, `two sum`, intersection, fréquences et caches simples.
+          </p>
+          <pre><code>seen = {}
+for index, value in enumerate(nums):
+    need = target - value
+    if need in seen:
+        return [seen[need], index]
+    seen[value] = index</code></pre>
+          <p data-reading>
+            Dans Two Sum, on ne cherche pas directement deux nombres. Pour chaque nombre, on cherche son complément. Cette inversion de perspective transforme une double boucle O(n²) en boucle simple O(n).
+          </p>
+          <div class="algo-facts">
+            <span><strong>Set</strong> appartenance O(1) moyenne</span>
+            <span><strong>Dict</strong> valeur associée O(1) moyenne</span>
+            <span><strong>Piège</strong> doublons et indices</span>
+          </div>
+        </section>
+
+        <section id="intervals" class="algo-section">
+          <div class="algo-heading">
+            <span>10</span>
+            <div>
+              <p class="eyebrow">Temps et segments</p>
+              <h3>Intervalles</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Les intervalles apparaissent avec des réunions, périodes, plages horaires, segments ou réservations. Le premier réflexe est presque toujours de trier par début. Une fois triés, les conflits deviennent locaux : tu compares l'intervalle courant avec le dernier intervalle gardé.
+          </p>
+          <pre><code>intervals.sort(key=lambda interval: interval[0])
+merged = [intervals[0]]
+for start, end in intervals[1:]:
+    last = merged[-1]
+    if start <= last[1]:
+        last[1] = max(last[1], end)
+    else:
+        merged.append([start, end])</code></pre>
+          <p data-reading>
+            Pour les salles de réunion, on veut savoir combien d'intervalles se chevauchent au maximum. Une solution classique trie les débuts et les fins avec deux pointeurs. Une autre utilise un min-heap des fins de réunions pour réutiliser la salle qui se libère le plus tôt.
+          </p>
+          <div class="algo-facts">
+            <span><strong>Merge</strong> O(n log n)</span>
+            <span><strong>Rooms</strong> heap ou two pointers</span>
+            <span><strong>Piège</strong> `end == start` ne chevauche pas</span>
+          </div>
+        </section>
+
+        <section id="grids" class="algo-section">
+          <div class="algo-heading">
+            <span>11</span>
+            <div>
+              <p class="eyebrow">Matrices</p>
+              <h3>Grilles : DFS, BFS et backtracking</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Une grille est un graphe caché. Chaque case est un nœud, et ses voisines sont souvent haut, bas, gauche, droite. Dès que le sujet parle d'îlots, de chemin, de contamination, de mot à retrouver ou de zones connectées, pense parcours de graphe.
+          </p>
+          <div class="algo-grid">
+            <div class="algo-card">
+              <h4>DFS</h4>
+              <p data-reading>Explore à fond une zone avant de revenir. Parfait pour compter des îlots ou marquer toute une composante.</p>
+            </div>
+            <div class="algo-card">
+              <h4>BFS</h4>
+              <p data-reading>Explore par distance croissante. Parfait pour plus court chemin ou propagation minute par minute.</p>
+            </div>
+            <div class="algo-card">
+              <h4>Backtracking</h4>
+              <p data-reading>Essaie un chemin, marque la case, avance, puis annule si le chemin ne marche pas. Indispensable pour Word Search.</p>
+            </div>
+          </div>
+          <pre><code>directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+for dr, dc in directions:
+    nr, nc = row + dr, col + dc
+    if 0 <= nr < rows and 0 <= nc < cols:
+        pass</code></pre>
+          <div class="algo-facts">
+            <span><strong>DFS/BFS grille</strong> O(R × C)</span>
+            <span><strong>Structure BFS</strong> deque</span>
+            <span><strong>Piège</strong> bornes avant accès</span>
+          </div>
+        </section>
+
+        <section id="rle" class="algo-section">
+          <div class="algo-heading">
+            <span>12</span>
+            <div>
+              <p class="eyebrow">Parsing</p>
+              <h3>Compression RLE</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Le Run-Length Encoding remplace une suite de caractères identiques par le caractère puis son nombre d'occurrences : `aaabbc` devient `a3b2c1`. C'est un exercice de parcours linéaire et de parsing propre.
+          </p>
+          <p data-reading>
+            Pour compresser, garde le caractère courant et un compteur. Quand le caractère change, tu écris le couple précédent. Pour décompresser, lis un caractère puis tous les chiffres qui le suivent, car le nombre peut avoir plusieurs chiffres.
+          </p>
+          <div class="algo-facts">
+            <span><strong>Compression</strong> O(n)</span>
+            <span><strong>Décompression</strong> O(n + sortie)</span>
+            <span><strong>Piège</strong> nombres à plusieurs chiffres</span>
+          </div>
+        </section>
+
+        <section id="cycles" class="algo-section">
+          <div class="algo-heading">
+            <span>13</span>
+            <div>
+              <p class="eyebrow">Graphes</p>
+              <h3>Détection de cycle</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Dans un graphe orienté, un cycle signifie qu'on peut revenir à un nœud déjà en cours de visite. C'est exactement le problème des dépendances impossibles : A dépend de B, B dépend de C, C dépend de A.
+          </p>
+          <p data-reading>
+            Le DFS avec coloriage est très lisible : blanc pour non visité, gris pour en cours, noir pour terminé. Si tu tombes sur un gris, tu as trouvé un cycle. Kahn détecte aussi les cycles : si après avoir retiré tous les nœuds sans dépendances il reste des nœuds, ils sont bloqués dans un cycle.
+          </p>
+          <pre><code>WHITE, GRAY, BLACK = 0, 1, 2
+if color[node] == GRAY:
+    return True</code></pre>
+          <div class="algo-facts">
+            <span><strong>DFS color</strong> O(V + E)</span>
+            <span><strong>Kahn</strong> O(V + E)</span>
+            <span><strong>Piège</strong> auto-boucle</span>
+          </div>
+        </section>
+
+        <section id="spiral" class="algo-section">
+          <div class="algo-heading">
+            <span>14</span>
+            <div>
+              <p class="eyebrow">Simulation</p>
+              <h3>Matrice spirale</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Les spirales sont des exercices de simulation. Tu gardes quatre limites : haut, bas, gauche, droite. Tu parcours la ligne du haut, puis la colonne de droite, puis la ligne du bas, puis la colonne de gauche, et tu resserres les limites.
+          </p>
+          <p data-reading>
+            L'autre méthode consiste à garder une direction courante et à tourner quand la prochaine case sort de la grille ou est déjà remplie. Les deux approches marchent ; les limites explicites sont souvent plus faciles à expliquer en correction.
+          </p>
+          <div class="algo-facts">
+            <span><strong>Lecture</strong> O(R × C)</span>
+            <span><strong>Génération n²</strong> O(n²)</span>
+            <span><strong>Piège</strong> ligne/colonne restantes</span>
+          </div>
+        </section>
+
+        <section id="word-ladder" class="algo-section">
+          <div class="algo-heading">
+            <span>15</span>
+            <div>
+              <p class="eyebrow">Graphe implicite</p>
+              <h3>Word Ladder</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Word Ladder est un BFS sur un graphe qu'on ne construit pas toujours explicitement. Chaque mot est un nœud. Deux mots sont voisins s'ils diffèrent d'une seule lettre. Comme on cherche la transformation la plus courte, BFS est le bon choix.
+          </p>
+          <p data-reading>
+            À chaque mot, tu génères toutes les variations possibles en changeant une position par les 26 lettres. Si le mot généré existe dans le dictionnaire et n'a pas été visité, tu l'ajoutes à la file avec une distance augmentée de 1.
+          </p>
+          <pre><code>queue = deque([(begin, 1)])
+words = set(word_list)
+while queue:
+    word, distance = queue.popleft()</code></pre>
+          <div class="algo-note">
+            <strong>Piège majeur :</strong>
+            <span data-reading>Si le mot de fin n'est pas dans la liste, il faut souvent retourner 0 immédiatement. Sinon tu fais un BFS inutile.</span>
+          </div>
+        </section>
+
+        <section id="meeting-scheduler" class="algo-section">
+          <div class="algo-heading">
+            <span>16</span>
+            <div>
+              <p class="eyebrow">Heap</p>
+              <h3>Meeting scheduler</h3>
+            </div>
+          </div>
+          <p data-reading>
+            Meeting Scheduler mélange tri d'intervalles et heap. On trie les réunions par heure de début. Le heap contient les salles occupées, triées par leur heure de libération. La salle qui se libère le plus tôt est toujours au sommet.
+          </p>
+          <p data-reading>
+            Pour chaque réunion, si la salle au sommet se libère avant ou exactement au début de la réunion, on peut la réutiliser. Sinon, il faut créer une nouvelle salle. Le nombre maximal de salles créées donne le minimum nécessaire.
+          </p>
+          <pre><code>heap = []  # (end_time, room_id)
+for start, end, name in meetings:
+    if heap and heap[0][0] <= start:
+        free_end, room = heappop(heap)
+    else:
+        room = new_room()
+    heappush(heap, (end, room))</code></pre>
+          <div class="algo-facts">
+            <span><strong>Complexité</strong> O(n log n)</span>
+            <span><strong>Structure</strong> heapq</span>
+            <span><strong>Piège</strong> `<=` et pas `<`</span>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <a class="back-to-top" href="#top" aria-label="Retour en haut" title="Retour en haut">↑</a>
+
+    <script src="scripts/reading-mode.js"></script>
+    <script src="scripts/algorithms-page.js"></script>
+  </body>
+</html>
